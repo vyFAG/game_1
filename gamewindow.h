@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QDebug>
 
 class GameWindow : public QMainWindow
 {
@@ -14,5 +15,8 @@ public:
 
 private:
     QPushButton* attackButton;
+
+private slots:
+    void attackAction();
 };
 #endif // GAMEWINDOW_H
