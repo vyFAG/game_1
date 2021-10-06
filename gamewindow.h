@@ -3,9 +3,12 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QHBoxLayout>
 #include <QDebug>
 
-class GameWindow : public QMainWindow
+#include "character.h"
+
+class GameWindow : public QWidget
 {
     Q_OBJECT
 
@@ -14,9 +17,17 @@ public:
     ~GameWindow();
 
 private:
+    QHBoxLayout* actionButtonsLayout;
+
     QPushButton* attackButton;
+    QPushButton* blockButton;
+    QPushButton* dodgeButton;
+
+    Character player;
 
 private slots:
     void attackAction();
+    void blockAction();
+    void dodgeAction();
 };
 #endif // GAMEWINDOW_H
