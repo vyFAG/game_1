@@ -11,5 +11,8 @@ class GameWindow : public QMainWindow
 public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
+
+private:
+    QPushButton* attackButton;
 };
 #endif // GAMEWINDOW_H
