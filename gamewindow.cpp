@@ -8,12 +8,18 @@ GameWindow::GameWindow(QWidget *parent)
     actionButtonsLayout = new QHBoxLayout(this);
 
     attackButton = new QPushButton("Attack", this);
+    attackButton->setMaximumHeight(50);
+    attackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(attackButton, SIGNAL(clicked()), this, SLOT(attackAction()));
 
     blockButton = new QPushButton("Block", this);
+    blockButton->setMaximumHeight(50);
+    blockButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(blockButton, SIGNAL(clicked()), this, SLOT(blockAction()));
 
     dodgeButton = new QPushButton("Dodge", this);
+    dodgeButton->setMaximumHeight(50);
+    dodgeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(dodgeButton, SIGNAL(clicked()), this, SLOT(dodgeAction()));
 
     actionButtonsLayout->addWidget(attackButton);
