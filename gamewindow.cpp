@@ -45,21 +45,46 @@ GameWindow::~GameWindow()
 
 void GameWindow::attackAction() {
     if(std::chrono::high_resolution_clock::now() - attackInterval > std::chrono::milliseconds(player.getAttackCooldown())) {
-        qDebug() << "attack";
+        attackTimer = new QTimer(this);
+        connect(attackTimer, &QTimer::timeout, this, &GameWindow::attackButtonEnable);
         attackInterval = std::chrono::high_resolution_clock::now();
+        attackButton->setEnabled(0);
+        attackTimer->start(std::chrono::milliseconds(player.getAttackCooldown()));
     }
 }
 
 void GameWindow::blockAction() {
     if(std::chrono::high_resolution_clock::now() - blockInterval > std::chrono::milliseconds(player.getBlockCooldown())) {
-        qDebug() << "block";
+        blockTimer = new QTimer(this);
+        connect(blockTimer, &QTimer::timeout, this, &GameWindow::blockButtonEnable);
         blockInterval = std::chrono::high_resolution_clock::now();
+        blockButton->setEnabled(0);
+        blockTimer->start(std::chrono::milliseconds(player.getBlockCooldown()));
     }
 }
 
 void GameWindow::dodgeAction() {
     if(std::chrono::high_resolution_clock::now() - dodgeInterval > std::chrono::milliseconds(player.getDodgeCooldown())) {
+        dodgeTimer = new QTimer(this);
+        connect(dodgeTimer, &QTimer::timeout, this, &GameWindow::dodgeButtonEnable);
         qDebug() << "dodge";
         dodgeInterval = std::chrono::high_resolution_clock::now();
+        dodgeButton->setEnabled(0);
+        dodgeTimer->start(std::chrono::milliseconds(player.getDodgeCooldown()));
     }
+}
+
+void GameWindow::attackButtonEnable() {
+    attackButton->setEnabled(1);
+    delete attackTimer;
+}
+
+void GameWindow::blockButtonEnable() {
+    blockButton->setEnabled(1);
+    delete blockTimer;
+}
+
+void GameWindow::dodgeButtonEnable() {
+    dodgeButton->setEnabled(1);
+    delete dodgeTimer;
 }

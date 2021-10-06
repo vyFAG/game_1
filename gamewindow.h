@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
+#include <QTimer>
 #include <chrono>
 
 #include "character.h"
@@ -35,9 +36,17 @@ private:
     std::chrono::high_resolution_clock::time_point blockInterval = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point dodgeInterval = std::chrono::high_resolution_clock::now();
 
+    QTimer *attackTimer;
+    QTimer *blockTimer;
+    QTimer *dodgeTimer;
+
 private slots:
     void attackAction();
     void blockAction();
     void dodgeAction();
+
+    void attackButtonEnable();
+    void blockButtonEnable();
+    void dodgeButtonEnable();
 };
 #endif // GAMEWINDOW_H
