@@ -7,7 +7,17 @@ Character::Character(QWidget *parent) : QWidget(parent)
     palyerDefense = 5;
     palyerAgility = 0.1;
 
-    attackCooldown = 1.5;
-    blockCooldown = 1.5;
-    dodgeCooldown = 5.0;
+    attackCooldown = 1500;
+    blockCooldown = 1500;
+    dodgeCooldown = 5000;
+}
+
+int Character::getAttackCooldown() {
+    return attackCooldown;
+}
+int Character::getBlockCooldown() {
+    return blockCooldown;
+}
+int Character::getDodgeCooldown() {
+    return dodgeCooldown;
 }

@@ -2,12 +2,16 @@
 #define CHARACTER_H
 
 #include <QWidget>
+#include <chrono>
 
 class Character : public QWidget
 {
     Q_OBJECT
 public:
     explicit Character(QWidget *parent = nullptr);
+    int getAttackCooldown();
+    int getBlockCooldown();
+    int getDodgeCooldown();
 
 private:
     double playerHealth;
@@ -15,9 +19,9 @@ private:
     double palyerDefense;
     double palyerAgility;
 
-    double attackCooldown;
-    double blockCooldown;
-    double dodgeCooldown;
+    int attackCooldown;
+    int blockCooldown;
+    int dodgeCooldown;
 signals:
 
 };
