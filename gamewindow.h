@@ -24,23 +24,16 @@ public:
 private:
     QHBoxLayout* actionButtonsLayout;
     QVBoxLayout* mainLayout;
-    QVBoxLayout* playerChars;
-    QVBoxLayout* enemyChars;
+    QVBoxLayout* playerCharsLayout;
+    QVBoxLayout* enemyCharsLayout;
     QHBoxLayout* charsLayout;
 
     QPushButton* attackButton;
     QPushButton* blockButton;
     QPushButton* dodgeButton;
 
-    QLabel* playerHealthChar;
-    QLabel* playerDamageChar;
-    QLabel* playerDefenseChar;
-    QLabel* playerAgilityChar;
-
-    QLabel* enemyHealthChar;
-    QLabel* enemyDamageChar;
-    QLabel* enemyDefenseChar;
-    QLabel* enemyAgilityChar;
+    QLabel* playerCharsLabel;
+    QLabel* enemyCharsLabel;
 
     Character player;
     Enemy enemy;
@@ -52,6 +45,9 @@ private:
     QTimer *attackTimer;
     QTimer *blockTimer;
     QTimer *dodgeTimer;
+
+    QString createPlayerCharsLabel();
+    QString createEnemyCharsLabel();
 
 private slots:
     void attackAction();

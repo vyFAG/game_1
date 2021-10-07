@@ -8,29 +8,15 @@ GameWindow::GameWindow(QWidget *parent)
     actionButtonsLayout = new QHBoxLayout();
     mainLayout = new QVBoxLayout(this);
 
-    playerChars = new QVBoxLayout();
+    playerCharsLayout = new QVBoxLayout();
+    playerCharsLabel = new QLabel(createPlayerCharsLabel(), this);
+    playerCharsLabel->setAlignment(Qt::AlignCenter);
+    playerCharsLayout->addWidget(playerCharsLabel);
 
-    playerHealthChar = new QLabel("HP: " + QString::number(player.getPlayerHealth()), this);
-    playerDamageChar = new QLabel("DMG: " + QString::number(player.getPlayerDamage()), this);
-    playerDefenseChar = new QLabel("DFN: " + QString::number(player.getPlayerDefense()), this);
-    playerAgilityChar = new QLabel("AGI: " + QString::number(player.getPlayerAgility()), this);
-
-    playerChars->addWidget(playerHealthChar);
-    playerChars->addWidget(playerDamageChar);
-    playerChars->addWidget(playerDefenseChar);
-    playerChars->addWidget(playerAgilityChar);
-
-    enemyChars = new QVBoxLayout();
-
-    enemyHealthChar = new QLabel("HP: " + QString::number(enemy.getEnemyHealth()), this);
-    enemyDamageChar = new QLabel("DMG: " + QString::number(enemy.getEnemyDamage()), this);
-    enemyDefenseChar = new QLabel("DFN: " + QString::number(enemy.getEnemyDefense()), this);
-    enemyAgilityChar = new QLabel("AGI: " + QString::number(enemy.getEnemyAgility()), this);
-
-    enemyChars->addWidget(enemyHealthChar);
-    enemyChars->addWidget(enemyDamageChar);
-    enemyChars->addWidget(enemyDefenseChar);
-    enemyChars->addWidget(enemyAgilityChar);
+    enemyCharsLayout = new QVBoxLayout();
+    enemyCharsLabel = new QLabel(createEnemyCharsLabel(), this);
+    enemyCharsLabel->setAlignment(Qt::AlignCenter);
+    enemyCharsLayout->addWidget(enemyCharsLabel);
 
     attackButton = new QPushButton("Attack", this);
     attackButton->setMaximumHeight(50);
@@ -55,8 +41,8 @@ GameWindow::GameWindow(QWidget *parent)
 
     charsLayout = new QHBoxLayout();
 
-    charsLayout->addLayout(playerChars);
-    charsLayout->addLayout(enemyChars);
+    charsLayout->addLayout(playerCharsLayout);
+    charsLayout->addLayout(enemyCharsLayout);
 
     mainLayout->addLayout(charsLayout);
     mainLayout->addLayout(actionButtonsLayout);
@@ -64,8 +50,7 @@ GameWindow::GameWindow(QWidget *parent)
     this->setLayout(mainLayout);
 }
 
-GameWindow::~GameWindow()
-{
+GameWindow::~GameWindow() {
 
 }
 
@@ -112,4 +97,18 @@ void GameWindow::blockButtonEnable() {
 void GameWindow::dodgeButtonEnable() {
     dodgeButton->setEnabled(1);
     delete dodgeTimer;
+}
+
+QString GameWindow::createPlayerCharsLabel() {
+    return ("HP: " + QString::number(player.getPlayerHealth()) + "\n" +
+    "DMG: " + QString::number(player.getPlayerDamage()) + "\n" +
+    "DFN: " + QString::number(player.getPlayerDefense()) + "\n" +
+    "AGI: " + QString::number(player.getPlayerAgility()));
+}
+
+QString GameWindow::createEnemyCharsLabel() {
+    return ("HP: " + QString::number(enemy.getEnemyHealth()) + "\n" +
+    "DMG: " + QString::number(enemy.getEnemyDamage()) + "\n" +
+    "DFN: " + QString::number(enemy.getEnemyDefense()) + "\n" +
+    "AGI: " + QString::number(enemy.getEnemyAgility()));
 }

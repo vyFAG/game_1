@@ -2,7 +2,7 @@
 #define ENEMY_H
 
 #include <QWidget>
-#include <random>
+#include <QRandomGenerator>
 
 class Enemy : public QWidget
 {
