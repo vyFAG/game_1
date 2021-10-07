@@ -8,8 +8,29 @@ GameWindow::GameWindow(QWidget *parent)
     actionButtonsLayout = new QHBoxLayout();
     mainLayout = new QVBoxLayout(this);
 
-    graphicsLabel = new QLabel("sex", this);
-    graphicsLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    playerChars = new QVBoxLayout();
+
+    playerHealthChar = new QLabel("HP: " + QString::number(player.getPlayerHealth()), this);
+    playerDamageChar = new QLabel("DMG: " + QString::number(player.getPlayerDamage()), this);
+    playerDefenseChar = new QLabel("DFN: " + QString::number(player.getPlayerDefense()), this);
+    playerAgilityChar = new QLabel("AGI: " + QString::number(player.getPlayerAgility()), this);
+
+    playerChars->addWidget(playerHealthChar);
+    playerChars->addWidget(playerDamageChar);
+    playerChars->addWidget(playerDefenseChar);
+    playerChars->addWidget(playerAgilityChar);
+
+    enemyChars = new QVBoxLayout();
+
+    enemyHealthChar = new QLabel("HP: " + QString::number(enemy.getEnemyHealth()), this);
+    enemyDamageChar = new QLabel("DMG: " + QString::number(enemy.getEnemyDamage()), this);
+    enemyDefenseChar = new QLabel("DFN: " + QString::number(enemy.getEnemyDefense()), this);
+    enemyAgilityChar = new QLabel("AGI: " + QString::number(enemy.getEnemyAgility()), this);
+
+    enemyChars->addWidget(enemyHealthChar);
+    enemyChars->addWidget(enemyDamageChar);
+    enemyChars->addWidget(enemyDefenseChar);
+    enemyChars->addWidget(enemyAgilityChar);
 
     attackButton = new QPushButton("Attack", this);
     attackButton->setMaximumHeight(50);
@@ -32,7 +53,12 @@ GameWindow::GameWindow(QWidget *parent)
 
     //actionButtonsLayout->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    mainLayout->addWidget(graphicsLabel);
+    charsLayout = new QHBoxLayout();
+
+    charsLayout->addLayout(playerChars);
+    charsLayout->addLayout(enemyChars);
+
+    mainLayout->addLayout(charsLayout);
     mainLayout->addLayout(actionButtonsLayout);
 
     this->setLayout(mainLayout);
@@ -67,7 +93,6 @@ void GameWindow::dodgeAction() {
     if(std::chrono::high_resolution_clock::now() - dodgeInterval > std::chrono::milliseconds(player.getDodgeCooldown())) {
         dodgeTimer = new QTimer(this);
         connect(dodgeTimer, &QTimer::timeout, this, &GameWindow::dodgeButtonEnable);
-        qDebug() << "dodge";
         dodgeInterval = std::chrono::high_resolution_clock::now();
         dodgeButton->setEnabled(0);
         dodgeTimer->start(std::chrono::milliseconds(player.getDodgeCooldown()));

@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     character.cpp \
+    enemy.cpp \
     main.cpp \
     gamewindow.cpp
 
 HEADERS += \
     character.h \
+    enemy.h \
     gamewindow.h
 
 # Default rules for deployment.

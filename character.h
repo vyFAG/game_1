@@ -9,6 +9,12 @@ class Character : public QWidget
     Q_OBJECT
 public:
     explicit Character(QWidget *parent = nullptr);
+
+    double getPlayerHealth();
+    double getPlayerDamage();
+    double getPlayerDefense();
+    double getPlayerAgility();
+
     int getAttackCooldown();
     int getBlockCooldown();
     int getDodgeCooldown();

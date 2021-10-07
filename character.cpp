@@ -12,6 +12,22 @@ Character::Character(QWidget *parent) : QWidget(parent)
     dodgeCooldown = 5000;
 }
 
+double Character::getPlayerHealth() {
+    return playerHealth;
+}
+
+double Character::getPlayerDamage() {
+    return palyerDamage;
+}
+
+double Character::getPlayerDefense() {
+    return palyerDefense;
+}
+
+double Character::getPlayerAgility() {
+    return palyerAgility;
+}
+
 int Character::getAttackCooldown() {
     return attackCooldown;
 }
