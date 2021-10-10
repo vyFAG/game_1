@@ -6,6 +6,8 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QTextEdit>
+#include <QMessageBox>
 #include <QDebug>
 #include <QTimer>
 #include <chrono>
@@ -20,7 +22,7 @@ class GameWindow : public QWidget
 public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
-    void fightFunc();
+    void addToLog(QString);
 
 private:
     QHBoxLayout* actionButtonsLayout;
@@ -35,6 +37,9 @@ private:
 
     QLabel* playerCharsLabel;
     QLabel* enemyCharsLabel;
+    QLabel* enemiesRemaining;
+
+    QTextEdit* gameLog;
 
     Character player;
     Enemy enemy;
@@ -51,6 +56,8 @@ private:
 
     QString createPlayerCharsLabel();
     QString createEnemyCharsLabel();
+
+    int passedEnemies = 0;
 
 private slots:
     void attackAction();

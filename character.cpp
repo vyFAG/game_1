@@ -67,6 +67,10 @@ bool Character::getIsBlocked() {
     return isBlocked;
 }
 
+void Character::setIsBlocked(bool value){
+    isBlocked = value;
+}
+
 int Character::getIsDodged() {
     return isDodged;
 }

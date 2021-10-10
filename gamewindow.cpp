@@ -18,6 +18,10 @@ GameWindow::GameWindow(QWidget *parent)
     enemyCharsLabel->setAlignment(Qt::AlignCenter);
     enemyCharsLayout->addWidget(enemyCharsLabel);
 
+    enemiesRemaining = new QLabel(this);
+    enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
+    enemiesRemaining->setAlignment(Qt::AlignCenter);
+
     attackButton = new QPushButton("Attack", this);
     attackButton->setMaximumHeight(50);
     attackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -33,6 +37,10 @@ GameWindow::GameWindow(QWidget *parent)
     dodgeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(dodgeButton, SIGNAL(clicked()), this, SLOT(dodgeAction()));
 
+    gameLog = new QTextEdit();
+    gameLog->setMaximumHeight(200);
+    gameLog->setReadOnly(1);
+
     actionButtonsLayout->addWidget(attackButton);
     actionButtonsLayout->addWidget(blockButton);
     actionButtonsLayout->addWidget(dodgeButton);
@@ -44,8 +52,10 @@ GameWindow::GameWindow(QWidget *parent)
     charsLayout->addLayout(playerCharsLayout);
     charsLayout->addLayout(enemyCharsLayout);
 
+    mainLayout->addWidget(enemiesRemaining);
     mainLayout->addLayout(charsLayout);
     mainLayout->addLayout(actionButtonsLayout);
+    mainLayout->addWidget(gameLog);
 
     this->setLayout(mainLayout);
 
@@ -65,9 +75,23 @@ void GameWindow::attackAction() {
         attackInterval = std::chrono::high_resolution_clock::now();
         attackButton->setEnabled(0);
         attackTimer->start(std::chrono::milliseconds(player.getAttackCooldown()));
+
+        double pre_attack_health = enemy.getEnemyHealth();
         enemy.getAttacked(player.getPlayerDamage(), player.getIsDodged());
+        addToLog(QString("Caused " + QString::number(pre_attack_health - enemy.getEnemyHealth()) + " damage"));
         if(enemy.getEnemyHealth() < 0) {
-            enemy.enemyKilled();
+            addToLog("Enemy died");
+            passedEnemies += 1;
+            if(passedEnemies == 5) {
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("You Won!");
+                msgBox.setText("You Won!");
+                msgBox.exec();
+            }
+            else {
+                enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
+                enemy.enemyKilled();
+            }
         }
         enemyCharsLabel->setText(createEnemyCharsLabel());
     }
@@ -75,6 +99,7 @@ void GameWindow::attackAction() {
 
 void GameWindow::blockAction() {
     if(std::chrono::high_resolution_clock::now() - blockInterval > std::chrono::milliseconds(player.getBlockCooldown())) {
+        player.setIsBlocked(1);
         blockTimer = new QTimer(this);
         connect(blockTimer, &QTimer::timeout, this, &GameWindow::blockButtonEnable);
         blockInterval = std::chrono::high_resolution_clock::now();
@@ -100,6 +125,7 @@ void GameWindow::attackButtonEnable() {
 }
 
 void GameWindow::blockButtonEnable() {
+    player.setIsBlocked(0);
     blockButton->setEnabled(1);
     delete blockTimer;
 }
@@ -125,8 +151,14 @@ QString GameWindow::createEnemyCharsLabel() {
 }
 
 void GameWindow::enemyAttack() {
+    double pre_attack_health = player.getPlayerHealth();
     player.getAttacked(enemy.getEnemyDamage());
+    addToLog(QString("Enemy caused " + QString::number(pre_attack_health - player.getPlayerHealth()) + " damage"));
     playerCharsLabel->setText(createPlayerCharsLabel());
+}
+
+void GameWindow::addToLog(QString text) {
+    gameLog->append(text);
 }
 
 //void GameWindow::fightFunc() {}

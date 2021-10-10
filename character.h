@@ -20,6 +20,7 @@ public:
     double getPlayerAgility();
 
     bool getIsBlocked();
+    void setIsBlocked(bool value);
     int getIsDodged();
     void setIsDodged(int value);
 
