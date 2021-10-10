@@ -20,6 +20,7 @@ class GameWindow : public QWidget
 public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
+    void fightFunc();
 
 private:
     QHBoxLayout* actionButtonsLayout;
@@ -46,6 +47,8 @@ private:
     QTimer *blockTimer;
     QTimer *dodgeTimer;
 
+    QTimer *enemyAttackTimer;
+
     QString createPlayerCharsLabel();
     QString createEnemyCharsLabel();
 
@@ -57,5 +60,7 @@ private slots:
     void attackButtonEnable();
     void blockButtonEnable();
     void dodgeButtonEnable();
+
+    void enemyAttack();
 };
 #endif // GAMEWINDOW_H

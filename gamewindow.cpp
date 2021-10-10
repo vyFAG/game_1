@@ -48,6 +48,10 @@ GameWindow::GameWindow(QWidget *parent)
     mainLayout->addLayout(actionButtonsLayout);
 
     this->setLayout(mainLayout);
+
+    enemyAttackTimer = new QTimer(this);
+    connect(enemyAttackTimer, &QTimer::timeout, this, &GameWindow::enemyAttack);
+    enemyAttackTimer->start(std::chrono::milliseconds(enemy.getAttackCooldown()));
 }
 
 GameWindow::~GameWindow() {
@@ -61,6 +65,11 @@ void GameWindow::attackAction() {
         attackInterval = std::chrono::high_resolution_clock::now();
         attackButton->setEnabled(0);
         attackTimer->start(std::chrono::milliseconds(player.getAttackCooldown()));
+        enemy.getAttacked(player.getPlayerDamage(), player.getIsDodged());
+        if(enemy.getEnemyHealth() < 0) {
+            enemy.enemyKilled();
+        }
+        enemyCharsLabel->setText(createEnemyCharsLabel());
     }
 }
 
@@ -81,6 +90,7 @@ void GameWindow::dodgeAction() {
         dodgeInterval = std::chrono::high_resolution_clock::now();
         dodgeButton->setEnabled(0);
         dodgeTimer->start(std::chrono::milliseconds(player.getDodgeCooldown()));
+        player.isDodgeSuccess();
     }
 }
 
@@ -95,6 +105,7 @@ void GameWindow::blockButtonEnable() {
 }
 
 void GameWindow::dodgeButtonEnable() {
+    player.setIsDodged(2);
     dodgeButton->setEnabled(1);
     delete dodgeTimer;
 }
@@ -112,3 +123,10 @@ QString GameWindow::createEnemyCharsLabel() {
     "DFN: " + QString::number(enemy.getEnemyDefense()) + "\n" +
     "AGI: " + QString::number(enemy.getEnemyAgility()));
 }
+
+void GameWindow::enemyAttack() {
+    player.getAttacked(enemy.getEnemyDamage());
+    playerCharsLabel->setText(createPlayerCharsLabel());
+}
+
+//void GameWindow::fightFunc() {}

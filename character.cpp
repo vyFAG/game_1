@@ -12,6 +12,31 @@ Character::Character(QWidget *parent) : QWidget(parent)
     dodgeCooldown = 5000;
 }
 
+void Character::isDodgeSuccess() {
+    std::uniform_real_distribution<> boolDodge(0, 1);
+    if(boolDodge(*QRandomGenerator::global()) <= palyerAgility) {
+        isDodged = 1;
+    }
+    else {
+        isDodged = 0;
+    }
+}
+
+void Character::getAttacked(double damage) {
+    if(isDodged == 1) {
+        damage = 0;
+    }
+    if(isBlocked == 1 && damage != 0) {
+        damage = damage - getPlayerDefense();
+    }
+    else {
+        damage -= getPlayerDefense() * 0.5;
+    }
+    if (damage >= 0) {
+        playerHealth -= damage;
+    }
+}
+
 double Character::getPlayerHealth() {
     return playerHealth;
 }
@@ -36,4 +61,16 @@ int Character::getBlockCooldown() {
 }
 int Character::getDodgeCooldown() {
     return dodgeCooldown;
+}
+
+bool Character::getIsBlocked() {
+    return isBlocked;
+}
+
+int Character::getIsDodged() {
+    return isDodged;
+}
+
+void Character::setIsDodged(int value){
+    isDodged = value;
 }

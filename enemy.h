@@ -10,14 +10,16 @@ class Enemy : public QWidget
 public:
     explicit Enemy(QWidget *parent = nullptr);
 
+    void getAttacked(double damage, bool playerDodged);
+
+    void enemyKilled();
+
     double getEnemyHealth();
     double getEnemyDamage();
     double getEnemyDefense();
     double getEnemyAgility();
 
     int getAttackCooldown();
-    int getBlockCooldown();
-    int getDodgeCooldown();
 
 private:
     double enemyHealth;
@@ -26,8 +28,6 @@ private:
     double enemyAgility;
 
     int attackCooldown;
-    int blockCooldown;
-    int dodgeCooldown;
 signals:
 
 };
