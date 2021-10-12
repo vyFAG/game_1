@@ -89,6 +89,7 @@ void GameWindow::attackAction() {
                 msgBox.setWindowTitle("You Won!");
                 msgBox.setText("You Won!");
                 msgBox.exec();
+                this->close();
             }
             else {
                 enemy.enemyKilled();
@@ -160,6 +161,12 @@ void GameWindow::enemyAttack() {
 
 void GameWindow::addToLog(QString text) {
     gameLog->append(text);
+}
+
+void GameWindow::closeEvent(QCloseEvent *event)
+{
+    emit windowClosed();
+    event->accept();
 }
 
 //void GameWindow::fightFunc() {}

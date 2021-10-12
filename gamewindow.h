@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <chrono>
+#include <QCloseEvent>
 
 #include "character.h"
 #include "enemy.h"
@@ -23,6 +24,7 @@ public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
     void addToLog(QString);
+    void closeEvent(QCloseEvent *event);
 
 private:
     QHBoxLayout* actionButtonsLayout;
@@ -58,6 +60,9 @@ private:
     QString createEnemyCharsLabel();
 
     int passedEnemies = 0;
+
+signals:
+    void windowClosed();
 
 private slots:
     void attackAction();

@@ -1,11 +1,11 @@
-#include "gamewindow.h"
+#include "mapwindow.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    GameWindow w;
+    MapWindow w;
     w.show();
     return a.exec();
 }

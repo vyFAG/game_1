@@ -12,12 +12,14 @@ SOURCES += \
     character.cpp \
     enemy.cpp \
     main.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    mapwindow.cpp
 
 HEADERS += \
     character.h \
     enemy.h \
-    gamewindow.h
+    gamewindow.h \
+    mapwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
