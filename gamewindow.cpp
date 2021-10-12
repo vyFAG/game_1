@@ -82,14 +82,15 @@ void GameWindow::attackAction() {
         if(enemy.getEnemyHealth() < 0) {
             addToLog("Enemy died");
             passedEnemies += 1;
+            enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
             if(passedEnemies == 5) {
+                delete enemyAttackTimer;
                 QMessageBox msgBox;
                 msgBox.setWindowTitle("You Won!");
                 msgBox.setText("You Won!");
                 msgBox.exec();
             }
             else {
-                enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
                 enemy.enemyKilled();
             }
         }
