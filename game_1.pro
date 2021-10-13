@@ -9,11 +9,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    character.cpp \
+    enemy.cpp \
     main.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    mapwindow.cpp
 
 HEADERS += \
-    gamewindow.h
+    character.h \
+    enemy.h \
+    gamewindow.h \
+    mapwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
