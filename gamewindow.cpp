@@ -160,7 +160,6 @@ void GameWindow::enemyAttack() {
     player.getAttacked(enemy.getEnemyDamage());
     addToLog(QString("Enemy caused " + QString::number(pre_attack_health - player.getPlayerHealth()) + " damage"));
     playerCharsLabel->setText(createPlayerCharsLabel());
-<<<<<<< HEAD
 
     if(player.getPlayerHealth() < 0) {
         delete enemyAttackTimer;
@@ -173,8 +172,6 @@ void GameWindow::enemyAttack() {
 
         this->close(); //---------------------------------------------------------END OF PROGRAMM------------------------------
     }
-=======
->>>>>>> parent of 68ec649 (enemy_stats_reballanced)
 }
 
 void GameWindow::addToLog(QString text) {
