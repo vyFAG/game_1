@@ -1,20 +1,30 @@
 #include "character.h"
 
-Character::Character(QWidget *parent) : QWidget(parent)
-{
+Character::Character() {
     playerHealth = 50;
-    palyerDamage = 10;
-    palyerDefense = 5;
-    palyerAgility = 0.1;
+    playerDamage = 10;
+    playerDefense = 5;
+    playerAgility = 0.1;
 
     attackCooldown = 1500;
     blockCooldown = 1500;
     dodgeCooldown = 5000;
 }
 
+Character::Character(Character& tmp) {
+    playerHealth = tmp.playerHealth;
+    playerDamage = tmp.playerDamage;
+    playerDefense = tmp.playerDefense;
+    playerAgility = tmp.playerAgility;
+
+    attackCooldown = tmp.attackCooldown;
+    blockCooldown = tmp.blockCooldown;
+    dodgeCooldown = tmp.dodgeCooldown;
+}
+
 void Character::isDodgeSuccess() {
     std::uniform_real_distribution<> boolDodge(0, 1);
-    if(boolDodge(*QRandomGenerator::global()) <= palyerAgility) {
+    if(boolDodge(*QRandomGenerator::global()) <= playerAgility) {
         isDodged = 1;
     }
     else {
@@ -40,17 +50,29 @@ void Character::getAttacked(double damage) {
 double Character::getPlayerHealth() {
     return playerHealth;
 }
+void Character::setPlayerHealth(double set_health) {
+    playerHealth = set_health;
+}
 
 double Character::getPlayerDamage() {
-    return palyerDamage;
+    return playerDamage;
+}
+void Character::setPlayerDamage(double set_damage) {
+    playerDamage = set_damage;
 }
 
 double Character::getPlayerDefense() {
-    return palyerDefense;
+    return playerDefense;
+}
+void Character::setPlayerDefense(double set_defense) {
+    playerDefense = set_defense;
 }
 
 double Character::getPlayerAgility() {
-    return palyerAgility;
+    return playerAgility;
+}
+void Character::setPlayerAgility(double set_agility) {
+    playerAgility = set_agility;
 }
 
 int Character::getAttackCooldown() {
@@ -78,3 +100,14 @@ int Character::getIsDodged() {
 void Character::setIsDodged(int value){
     isDodged = value;
 }
+
+/*Character& Character::operator=(Character other) {
+    playerHealth = other.playerHealth;
+    playerDamage = other.playerDamage;
+    playerDefense = other.playerDefense;
+    playerAgility = other.playerAgility;
+
+    attackCooldown = other.attackCooldown;
+    blockCooldown = other.blockCooldown;
+    dodgeCooldown = other.dodgeCooldown;
+}*/

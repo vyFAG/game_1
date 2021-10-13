@@ -44,6 +44,7 @@ private:
     QTextEdit* gameLog;
 
     Character player;
+    Character* playerTemp;
     Enemy enemy;
 
     std::chrono::high_resolution_clock::time_point attackInterval = std::chrono::high_resolution_clock::now();

@@ -7,6 +7,7 @@
 #include <QScrollArea>
 
 #include "gamewindow.h"
+#include "character.h"
 
 class MapWindow : public QWidget
 {
@@ -22,6 +23,8 @@ private:
     QScrollArea* mapsScrollArea;
 
     GameWindow* game;
+
+    Character player;
 
 private slots:
     void mapOpened();

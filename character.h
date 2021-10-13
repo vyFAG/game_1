@@ -4,20 +4,25 @@
 #include <QWidget>
 #include <QRandomGenerator>
 
-class Character : public QWidget
+class Character
 {
-    Q_OBJECT
+    //Q_OBJECT
 public:
-    explicit Character(QWidget *parent = nullptr);
+    Character();
+    Character(Character& tmp);
 
     void getAttacked(double damage);
 
     void isDodgeSuccess();
 
     double getPlayerHealth();
+    void setPlayerHealth(double set_health);
     double getPlayerDamage();
+    void setPlayerDamage(double set_damage);
     double getPlayerDefense();
+    void setPlayerDefense(double set_defense);
     double getPlayerAgility();
+    void setPlayerAgility(double set_agility);
 
     bool getIsBlocked();
     void setIsBlocked(bool value);
@@ -30,9 +35,9 @@ public:
 
 private:
     double playerHealth;
-    double palyerDamage;
-    double palyerDefense;
-    double palyerAgility;
+    double playerDamage;
+    double playerDefense;
+    double playerAgility;
 
     bool isBlocked = 0;
     int isDodged = 2;
@@ -40,7 +45,6 @@ private:
     int attackCooldown;
     int blockCooldown;
     int dodgeCooldown;
-signals:
 
 };
 
