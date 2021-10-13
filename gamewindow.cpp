@@ -157,6 +157,18 @@ void GameWindow::enemyAttack() {
     player.getAttacked(enemy.getEnemyDamage());
     addToLog(QString("Enemy caused " + QString::number(pre_attack_health - player.getPlayerHealth()) + " damage"));
     playerCharsLabel->setText(createPlayerCharsLabel());
+<<<<<<< HEAD
+=======
+
+    if(player.getPlayerHealth() < 0) {
+        delete enemyAttackTimer;
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("You Lost!");
+        msgBox.setText("You were killed");
+        msgBox.exec();
+        this->close();
+    }
+>>>>>>> parent of ff65e3d (programm_downed)
 }
 
 void GameWindow::addToLog(QString text) {
