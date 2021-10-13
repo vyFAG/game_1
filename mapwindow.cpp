@@ -22,6 +22,10 @@ void MapWindow::mapOpened() {
     connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
     game->show();
     this->hide();
+<<<<<<< HEAD
+=======
+    connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
+>>>>>>> parent of 68ec649 (enemy_stats_reballanced)
 }
 
 void MapWindow::showWindow() {
