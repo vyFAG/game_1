@@ -19,12 +19,12 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 
 void MapWindow::mapOpened() {
     game = new GameWindow();
+    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
     game->show();
     this->hide();
-    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {
-    delete game;
     this->show();
+    delete game;
 }
