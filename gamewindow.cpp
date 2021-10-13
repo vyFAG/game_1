@@ -89,10 +89,7 @@ void GameWindow::attackAction() {
                 msgBox.setWindowTitle("You Won!");
                 msgBox.setText("You Won!");
                 msgBox.exec();
-
-                //player.setPlayerHealth(playerTemp->getPlayerHealth());
-
-                this->close(); //---------------------------------------------------------END OF PROGRAMM------------------------------
+                this->close();
             }
             else {
                 enemy.enemyKilled();
@@ -167,10 +164,7 @@ void GameWindow::enemyAttack() {
         msgBox.setWindowTitle("You Lost!");
         msgBox.setText("You were killed");
         msgBox.exec();
-
-        //player.setPlayerHealth(playerTemp->getPlayerHealth());
-
-        this->close(); //---------------------------------------------------------END OF PROGRAMM------------------------------
+        this->close();
     }
 }
 
