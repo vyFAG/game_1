@@ -21,7 +21,7 @@ void MapWindow::mapOpened() {
     game = new GameWindow();
     game->show();
     this->hide();
-    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+    connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {

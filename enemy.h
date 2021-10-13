@@ -4,10 +4,6 @@
 #include <QWidget>
 #include <QRandomGenerator>
 
-#include <cmath>
-
-#include <character.h>
-
 class Enemy : public QWidget
 {
     Q_OBJECT
