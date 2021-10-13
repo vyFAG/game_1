@@ -91,8 +91,8 @@ void GameWindow::attackAction() {
                 msgBox.exec();
 
                 //player.setPlayerHealth(playerTemp->getPlayerHealth());
-
-                this->close(); //---------------------------------------------------------END OF PROGRAMM------------------------------
+                emit windowClosed();
+                this->hide(); //---------------------------------------------------------END OF PROGRAMM------------------------------
             }
             else {
                 enemy.enemyKilled();
@@ -169,19 +169,12 @@ void GameWindow::enemyAttack() {
         msgBox.exec();
 
         //player.setPlayerHealth(playerTemp->getPlayerHealth());
-
-        this->close(); //---------------------------------------------------------END OF PROGRAMM------------------------------
+        emit windowClosed();
+        this->hide(); //---------------------------------------------------------END OF PROGRAMM------------------------------
     }
 }
 
 void GameWindow::addToLog(QString text) {
     gameLog->append(text);
 }
-
-void GameWindow::closeEvent(QCloseEvent *event)
-{
-    emit windowClosed();
-    event->accept();
-}
-
 //void GameWindow::fightFunc() {}

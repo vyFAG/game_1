@@ -25,6 +25,6 @@ void MapWindow::mapOpened() {
 }
 
 void MapWindow::showWindow() {
-    delete game;
+    //delete game;
     this->show();
 }

@@ -24,7 +24,6 @@ public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
     void addToLog(QString);
-    void closeEvent(QCloseEvent *event);
 
 private:
     QHBoxLayout* actionButtonsLayout;
