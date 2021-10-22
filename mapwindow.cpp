@@ -22,12 +22,21 @@ void MapWindow::mapOpened() {
     game->show();
     this->hide();
 <<<<<<< HEAD
+<<<<<<< HEAD
     connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {
     this->show();
     //delete game;
+=======
+    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+}
+
+void MapWindow::showWindow() {
+    delete game;
+    this->show();
+>>>>>>> parent of 4cd9885 (Update mapwindow.cpp)
 =======
     connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
 }
