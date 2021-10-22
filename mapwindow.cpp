@@ -3,12 +3,24 @@
 MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 {
     player = new Character();
+
     forestMap = new QPushButton("Forest", this);
     connect(forestMap, SIGNAL(clicked()), this, SLOT(mapOpened()));
     sewerageMap = new QPushButton("Sewerage", this);
 
+    mainLayout = new QVBoxLayout(this);
+
+    ExpLabel = new QLabel("exp", this);
+    LvlLabel = new QLabel("lvl", this);
+
+    playerExp = new QHBoxLayout(this);
+    playerExp->addWidget(ExpLabel);
+    playerExp->addWidget(LvlLabel);
+
     mapsLayout = new QHBoxLayout(this);
     mapsScrollArea = new QScrollArea(this);
+
+    mainLayout->addLayout(playerExp);
 
     mapsLayout->addWidget(forestMap);
     mapsLayout->addWidget(sewerageMap);
@@ -16,6 +28,9 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     widget -> setLayout(mapsLayout);
     mapsScrollArea -> setWidget(widget);
     mapsScrollArea->show();
+    mapsScrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    mainLayout->addWidget(mapsScrollArea);
 }
 
 void MapWindow::mapOpened() {

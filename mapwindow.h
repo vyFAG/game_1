@@ -2,8 +2,10 @@
 #define MAPWINDOW_H
 
 #include <QWidget>
+#include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QScrollArea>
 #include <character.h>
 
@@ -19,7 +21,12 @@ private:
     QPushButton* forestMap;
     QPushButton* sewerageMap;
 
+    QLabel* LvlLabel;
+    QLabel* ExpLabel;
+
+    QVBoxLayout* mainLayout;
     QHBoxLayout* mapsLayout;
+    QHBoxLayout* playerExp;
     QScrollArea* mapsScrollArea;
 
     GameWindow* game;
