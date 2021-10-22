@@ -21,7 +21,7 @@ class GameWindow : public QWidget
     Q_OBJECT
 
 public:
-    GameWindow(QWidget *parent = nullptr);
+    GameWindow(Character& set_player, QWidget *parent = nullptr);
     ~GameWindow();
     void addToLog(QString);
     void closeEvent(QCloseEvent *event);
@@ -60,6 +60,9 @@ private:
     QString createEnemyCharsLabel();
 
     int passedEnemies = 0;
+
+    double expGained = 0;
+    double absHealth = 0;
 
 signals:
     void windowClosed();

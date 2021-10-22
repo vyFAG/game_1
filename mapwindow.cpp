@@ -2,6 +2,7 @@
 
 MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 {
+    player = new Character();
     forestMap = new QPushButton("Forest", this);
     connect(forestMap, SIGNAL(clicked()), this, SLOT(mapOpened()));
     sewerageMap = new QPushButton("Sewerage", this);
@@ -18,13 +19,14 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 }
 
 void MapWindow::mapOpened() {
-    game = new GameWindow();
+    game = new GameWindow(*player);
     game->show();
     this->hide();
     connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {
+
     this->show();
     //delete game;
 }

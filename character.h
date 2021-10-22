@@ -14,25 +14,33 @@ public:
 
     void isDodgeSuccess();
 
-    double getPlayerHealth();
-    double getPlayerDamage();
-    double getPlayerDefense();
-    double getPlayerAgility();
+    double getPlayerExp() const;
+    void setPlayerExp(double);
 
-    bool getIsBlocked();
+    double getPlayerHealth() const;
+    double getPlayerDamage() const;
+    double getPlayerDefense() const;
+    double getPlayerAgility() const;
+
+    bool getIsBlocked() const;
     void setIsBlocked(bool value);
-    int getIsDodged();
+    int getIsDodged() const;
     void setIsDodged(int value);
 
-    int getAttackCooldown();
-    int getBlockCooldown();
-    int getDodgeCooldown();
+    int getAttackCooldown() const;
+    int getBlockCooldown() const;
+    int getDodgeCooldown() const;
+
+    Character& operator=(const Character&);
 
 private:
+    double playerExp = 0;
+    int playerLvl = 1;
+
     double playerHealth;
-    double palyerDamage;
-    double palyerDefense;
-    double palyerAgility;
+    double playerDamage;
+    double playerDefense;
+    double playerAgility;
 
     bool isBlocked = 0;
     int isDodged = 2;

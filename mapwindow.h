@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QScrollArea>
+#include <character.h>
 
 #include "gamewindow.h"
 
@@ -22,6 +23,8 @@ private:
     QScrollArea* mapsScrollArea;
 
     GameWindow* game;
+
+    Character* player;
 
 private slots:
     void mapOpened();

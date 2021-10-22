@@ -1,8 +1,10 @@
 #include "gamewindow.h"
 
-GameWindow::GameWindow(QWidget *parent)
+GameWindow::GameWindow(Character& set_player, QWidget *parent)
     : QWidget(parent)
 {
+    player = set_player;
+
     this->setMinimumSize(320, 240);
     this->setMaximumSize(640, 480);
     actionButtonsLayout = new QHBoxLayout();
