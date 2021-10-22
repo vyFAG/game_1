@@ -21,36 +21,10 @@ void MapWindow::mapOpened() {
     game = new GameWindow();
     game->show();
     this->hide();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
+    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {
     this->show();
     //delete game;
-=======
-    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
-}
-
-void MapWindow::showWindow() {
-    delete game;
-    this->show();
->>>>>>> parent of 4cd9885 (Update mapwindow.cpp)
-=======
-    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
-=======
-    connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
->>>>>>> parent of c0d1d8e (Revert "returned")
-=======
-    connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
->>>>>>> parent of c0d1d8e (Revert "returned")
-}
-
-void MapWindow::showWindow() {
-    delete game;
-    this->show();
->>>>>>> parent of 4cd9885 (Update mapwindow.cpp)
 }

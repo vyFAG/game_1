@@ -175,7 +175,7 @@ void GameWindow::addToLog(QString text) {
 void GameWindow::closeEvent(QCloseEvent *event)
 {
     emit windowClosed();
-    //event->accept();
+    event->accept();
 }
 
 //void GameWindow::fightFunc() {}
