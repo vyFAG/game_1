@@ -15,8 +15,9 @@ public:
     void isDodgeSuccess();
 
     double getPlayerExp() const;
-    void setPlayerExp(double);
+    void addPlayerExp(double);
 
+    double getPlayerMaxHealth() const;
     double getPlayerHealth() const;
     double getPlayerDamage() const;
     double getPlayerDefense() const;
@@ -37,6 +38,7 @@ private:
     double playerExp = 0;
     int playerLvl = 1;
 
+    double playerMaxHealth;
     double playerHealth;
     double playerDamage;
     double playerDefense;

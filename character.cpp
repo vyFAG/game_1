@@ -2,6 +2,7 @@
 
 Character::Character(QWidget *parent) : QWidget(parent)
 {
+    playerMaxHealth = 50;
     playerHealth = 50;
     playerDamage = 10;
     playerDefense = 5;
@@ -50,11 +51,18 @@ Character& Character::operator=(const Character& left_var) {
     return *this;
 }
 
+double Character::getPlayerMaxHealth() const {
+    return playerMaxHealth;
+}
+
 double Character::getPlayerExp() const {
     return playerExp;
 }
-void Character::setPlayerExp(double value) {
-    playerExp = value;
+void Character::addPlayerExp(double value) {
+    playerExp += value;
+    if(sqrt(playerExp) + 1 > playerLvl) {
+        playerLvl += 1;
+    }
 }
 
 double Character::getPlayerHealth() const{

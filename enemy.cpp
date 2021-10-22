@@ -8,6 +8,7 @@ Enemy::Enemy(QWidget *parent) : QWidget(parent)
     enemyDamage = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7 * 10)) / 10;
     enemyDefense = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7 * 10)) / 10;
     enemyAgility = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7)) / 10;
+    enemyExpGain = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7 * 10)) / 10;
 
     attackCooldown = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 0.25) * 1000 * 5));
 }
@@ -37,24 +38,29 @@ void Enemy::enemyKilled() {
     enemyDamage = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7 * 10)) / 10;
     enemyDefense = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7 * 10)) / 10;
     enemyAgility = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7)) / 10;
+    enemyExpGain = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 2) * 7 * 10)) / 10;
 
     attackCooldown = static_cast<double>(static_cast<int>(pow(real_part(*QRandomGenerator::global()), 0.25) * 1000 * 5));
 }
 
-double Enemy::getEnemyHealth() {
+double Enemy::getEnemyHealth() const{
     return enemyHealth;
 }
 
-double Enemy::getEnemyDamage() {
+double Enemy::getEnemyDamage() const{
     return enemyDamage;
 }
 
-double Enemy::getEnemyDefense() {
+double Enemy::getEnemyDefense() const{
     return enemyDefense;
 }
 
-double Enemy::getEnemyAgility() {
+double Enemy::getEnemyAgility() const{
     return enemyAgility;
+}
+
+double Enemy::getExpGain() const {
+    return enemyExpGain;
 }
 
 int Enemy::getAttackCooldown() {

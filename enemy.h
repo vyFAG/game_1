@@ -14,10 +14,11 @@ public:
 
     void enemyKilled();
 
-    double getEnemyHealth();
-    double getEnemyDamage();
-    double getEnemyDefense();
-    double getEnemyAgility();
+    double getEnemyHealth() const;
+    double getEnemyDamage() const;
+    double getEnemyDefense() const;
+    double getEnemyAgility() const;
+    double getExpGain() const;
 
     int getAttackCooldown();
 
@@ -26,6 +27,7 @@ private:
     double enemyDamage;
     double enemyDefense;
     double enemyAgility;
+    double enemyExpGain;
 
     int attackCooldown;
 signals:
