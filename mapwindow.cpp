@@ -19,13 +19,21 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 
 void MapWindow::mapOpened() {
     game = new GameWindow();
-    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
     game->show();
     this->hide();
+<<<<<<< HEAD
     connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {
     this->show();
     //delete game;
+=======
+    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+}
+
+void MapWindow::showWindow() {
+    delete game;
+    this->show();
+>>>>>>> parent of 4cd9885 (Update mapwindow.cpp)
 }
