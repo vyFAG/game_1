@@ -24,6 +24,7 @@ void MapWindow::mapOpened() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
 }
 
@@ -40,6 +41,9 @@ void MapWindow::showWindow() {
 >>>>>>> parent of 4cd9885 (Update mapwindow.cpp)
 =======
     connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+=======
+    connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
+>>>>>>> parent of c0d1d8e (Revert "returned")
 =======
     connect(game, SIGNAL(windowClosed), this, SLOT(showWindow()));
 >>>>>>> parent of c0d1d8e (Revert "returned")
