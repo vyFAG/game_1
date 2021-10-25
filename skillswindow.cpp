@@ -1,14 +1,23 @@
 #include "skillswindow.h"
 
-SkillsWindow::SkillsWindow(QWidget *parent) : QWidget(parent)
+SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(parent)
 {
+    player = &set_player;
+
     healthUpgradeButton = new QPushButton("Health", this);
+    connect(healthUpgradeButton, SIGNAL(clicked()), this, SLOT(upgradeHealth()));
     damageUpgradeButton = new QPushButton("Damage", this);
+    connect(damageUpgradeButton, SIGNAL(clicked()), this, SLOT(upgradeDamage()));
     defenseUpgradeButton = new QPushButton("Defense", this);
+    connect(defenseUpgradeButton, SIGNAL(clicked()), this, SLOT(upgradeDefense()));
     agilityUpgradeButton = new QPushButton("Agility", this);
+    connect(agilityUpgradeButton, SIGNAL(clicked()), this, SLOT(upgradeAgility()));
     attackSpeedUpgrade = new QPushButton("Attack cooldown", this);
+    connect(attackSpeedUpgrade, SIGNAL(clicked()), this, SLOT(upgradeAttackSpeed()));
     blockSpeedUpgrade = new QPushButton("Block cooldown", this);
+    connect(blockSpeedUpgrade, SIGNAL(clicked()), this, SLOT(upgradeBlockSpeed()));
     dodgeSpeedUpgrade = new QPushButton("Dodge cooldown", this);
+    connect(dodgeSpeedUpgrade, SIGNAL(clicked()), this, SLOT(upgradeDodgeSpeed()));
 
     upgradeButtonsLayout = new QVBoxLayout();
     upgradeButtonsLayout->addWidget(healthUpgradeButton);
@@ -41,4 +50,41 @@ SkillsWindow::SkillsWindow(QWidget *parent) : QWidget(parent)
     mainUpgradeLayout->addLayout(statisticLabelLayout);
 
     this->setLayout(mainUpgradeLayout);
+}
+
+void SkillsWindow::upgradeHealth() {
+    if(player->getUpgradePoints() != 0) {
+        player->setPlayerMaxHealth(player->getPlayerMaxHealth() * 1.1);
+        player->setPlayerHealth(player->getPlayerMaxHealth());
+    }
+}
+void SkillsWindow::upgradeDamage() {
+    if(player->getUpgradePoints() != 0) {
+        player->setPlayerDamage(player->getPlayerDamage() * 1.1);
+    }
+}
+void SkillsWindow::upgradeDefense() {
+    if(player->getUpgradePoints() != 0) {
+        player->setPlayerDefense(player->getPlayerDefense() * 1.1);
+    }
+}
+void SkillsWindow::upgradeAgility() {
+    if(player->getUpgradePoints() != 0) {
+        player->setPlayerAgility(player->getPlayerAgility() * 1.1);
+    }
+}
+void SkillsWindow::upgradeAttackSpeed() {
+    if(player->getUpgradePoints() != 0) {
+        player->setAttackCooldown(player->getAttackCooldown() * 0.9);
+    }
+}
+void SkillsWindow::upgradeBlockSpeed() {
+    if(player->getUpgradePoints() != 0) {
+        player->setBlockCooldown(player->getBlockCooldown() * 0.9);
+    }
+}
+void SkillsWindow::upgradeDodgeSpeed() {
+    if(player->getUpgradePoints() != 0) {
+        player->setDodgeCooldown(player->getDodgeCooldown() * 0.9);
+    }
 }

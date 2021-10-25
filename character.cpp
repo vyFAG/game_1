@@ -51,10 +51,6 @@ Character& Character::operator=(const Character& left_var) {
     return *this;
 }
 
-double Character::getPlayerMaxHealth() const {
-    return playerMaxHealth;
-}
-
 double Character::getPlayerExp() const {
     return playerExp;
 }
@@ -62,37 +58,72 @@ void Character::addPlayerExp(double value) {
     playerExp += value;
     if(sqrt(playerExp) + 1 > playerLvl) {
         playerLvl += 1;
+        upgradePoints += 1;
     }
+}
+
+int Character::getUpgradePoints() const {
+    return upgradePoints;
 }
 
 int Character::getPlayerLvl() const {
     return playerLvl;
 }
 
+double Character::getPlayerMaxHealth() const {
+    return playerMaxHealth;
+}
+void Character::setPlayerMaxHealth(double value) {
+    playerMaxHealth = static_cast<double>(static_cast<int>(value * 10)) / 10;
+}
+
 double Character::getPlayerHealth() const{
     return playerHealth;
+}
+void Character::setPlayerHealth(double value) {
+    playerHealth = static_cast<double>(static_cast<int>(value * 10)) / 10;
 }
 
 double Character::getPlayerDamage() const{
     return playerDamage;
 }
+void Character::setPlayerDamage(double value) {
+    playerDamage = static_cast<double>(static_cast<int>(value * 10)) / 10;
+}
 
 double Character::getPlayerDefense() const{
     return playerDefense;
+}
+void Character::setPlayerDefense(double value) {
+    playerDefense = static_cast<double>(static_cast<int>(value * 10)) / 10;
 }
 
 double Character::getPlayerAgility() const{
     return playerAgility;
 }
+void Character::setPlayerAgility(double value) {
+    playerAgility = static_cast<double>(static_cast<int>(value * 10)) / 10;
+}
 
 int Character::getAttackCooldown() const{
     return attackCooldown;
 }
+void Character::setAttackCooldown(int value) {
+    attackCooldown = value;
+}
+
 int Character::getBlockCooldown() const{
     return blockCooldown;
 }
+void Character::setBlockCooldown(int value) {
+    blockCooldown = value;
+}
+
 int Character::getDodgeCooldown() const{
     return dodgeCooldown;
+}
+void Character::setDodgeCooldown(int value) {
+    dodgeCooldown = value;
 }
 
 bool Character::getIsBlocked() const{

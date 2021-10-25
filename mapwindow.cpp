@@ -45,13 +45,16 @@ void MapWindow::mapOpened() {
 }
 
 void MapWindow::showWindow() {
+    ExpLabel->setText(expLabelText());
+    LvlLabel->setText(lvlLabelText());
+
 
     this->show();
     //delete game;
 }
 
 void MapWindow::upgradeOpened() {
-    upgradeTab = new SkillsWindow();
+    upgradeTab = new SkillsWindow(*player);
     upgradeTab->show();
 }
 

@@ -7,11 +7,13 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
+#include "character.h"
+
 class SkillsWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SkillsWindow(QWidget *parent = nullptr);
+    explicit SkillsWindow(Character& set_player, QWidget *parent = nullptr);
 
 private:
     QPushButton* healthUpgradeButton;
@@ -34,7 +36,18 @@ private:
     QVBoxLayout* statisticLabelLayout;
     QHBoxLayout* mainUpgradeLayout;
 
+    Character* player;
+
 signals:
+
+private slots:
+    void upgradeHealth();
+    void upgradeDamage();
+    void upgradeDefense();
+    void upgradeAgility();
+    void upgradeAttackSpeed();
+    void upgradeBlockSpeed();
+    void upgradeDodgeSpeed();
 
 };
 
