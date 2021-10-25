@@ -65,6 +65,10 @@ void Character::addPlayerExp(double value) {
     }
 }
 
+int Character::getPlayerLvl() const {
+    return playerLvl;
+}
+
 double Character::getPlayerHealth() const{
     return playerHealth;
 }

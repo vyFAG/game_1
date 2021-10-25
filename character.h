@@ -17,6 +17,9 @@ public:
     double getPlayerExp() const;
     void addPlayerExp(double);
 
+    int getPlayerLvl() const;
+    //void addPlayerLvl(double);
+
     double getPlayerMaxHealth() const;
     double getPlayerHealth() const;
     double getPlayerDamage() const;

@@ -8,10 +8,13 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     connect(forestMap, SIGNAL(clicked()), this, SLOT(mapOpened()));
     sewerageMap = new QPushButton("Sewerage", this);
 
+    upgradeWindow = new QPushButton("UPGRADE", this);
+    connect(upgradeWindow, SIGNAL(clicked()), this, SLOT(upgradeOpened()));
+
     mainLayout = new QVBoxLayout(this);
 
-    ExpLabel = new QLabel("exp", this);
-    LvlLabel = new QLabel("lvl", this);
+    ExpLabel = new QLabel(expLabelText(), this);
+    LvlLabel = new QLabel(lvlLabelText(), this);
 
     playerExp = new QHBoxLayout(this);
     playerExp->addWidget(ExpLabel);
@@ -31,17 +34,31 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     mapsScrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     mainLayout->addWidget(mapsScrollArea);
+    mainLayout->addWidget(upgradeWindow);
 }
 
 void MapWindow::mapOpened() {
-    game = new GameWindow(*player);
-    game->show();
+    gameTab = new GameWindow(*player);
+    gameTab->show();
     this->hide();
-    connect(game, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+    connect(gameTab, SIGNAL(windowClosed()), this, SLOT(showWindow()));
 }
 
 void MapWindow::showWindow() {
 
     this->show();
     //delete game;
+}
+
+void MapWindow::upgradeOpened() {
+    upgradeTab = new SkillsWindow();
+    upgradeTab->show();
+}
+
+QString MapWindow::expLabelText() {
+    return QString("EXP: " + QString::number(player->getPlayerExp()));
+}
+
+QString MapWindow::lvlLabelText() {
+    return QString("LVL: " + QString::number(player->getPlayerLvl()));
 }
