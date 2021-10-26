@@ -51,12 +51,23 @@ Character& Character::operator=(const Character& left_var) {
     return *this;
 }
 
+int Character::levelCheck(double exp) {
+    int tmp_exp = 0;
+    int tmp_level = 1;
+    while(tmp_exp + 10 < exp) {
+        tmp_exp += 10;
+        tmp_level++;
+    }
+
+    return tmp_level;
+}
+
 double Character::getPlayerExp() const {
     return playerExp;
 }
 void Character::addPlayerExp(double value) {
     playerExp += value;
-    if(sqrt(playerExp) + 1 > playerLvl) {
+    if(levelCheck(playerExp) > playerLvl) {
         playerLvl += 1;
         upgradePoints += 1;
     }

@@ -40,7 +40,8 @@ private:
     QString lvlLabelText();
 
 private slots:
-    void mapOpened();
+    void forestMapOpened();
+    void sewereMapOpened();
     void showWindow();
     void upgradeOpened();
 

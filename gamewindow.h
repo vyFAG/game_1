@@ -21,7 +21,7 @@ class GameWindow : public QWidget
     Q_OBJECT
 
 public:
-    GameWindow(Character& set_player, QWidget *parent = nullptr);
+    GameWindow(Character& set_player, int multiplier, QWidget *parent = nullptr);
     ~GameWindow();
     void addToLog(QString);
     void closeEvent(QCloseEvent *event);
@@ -44,7 +44,7 @@ private:
     QTextEdit* gameLog;
 
     Character* player;
-    Enemy enemy;
+    Enemy* enemy;
 
     std::chrono::high_resolution_clock::time_point attackInterval = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point blockInterval = std::chrono::high_resolution_clock::now();

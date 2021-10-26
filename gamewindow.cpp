@@ -1,11 +1,12 @@
 #include "gamewindow.h"
 
-GameWindow::GameWindow(Character& set_player, QWidget *parent)
+GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
     : QWidget(parent)
 {
     absHealth = set_player.getPlayerHealth();
 
     player = &set_player;
+    enemy = new Enemy(multiplier);
 
     this->setMinimumSize(320, 240);
     this->setMaximumSize(640, 480);
@@ -65,11 +66,36 @@ GameWindow::GameWindow(Character& set_player, QWidget *parent)
 
     enemyAttackTimer = new QTimer(this);
     connect(enemyAttackTimer, &QTimer::timeout, this, &GameWindow::enemyAttack);
-    enemyAttackTimer->start(std::chrono::milliseconds(enemy.getAttackCooldown()));
+    enemyAttackTimer->start(std::chrono::milliseconds(enemy->getAttackCooldown()));
 }
 
 GameWindow::~GameWindow() {
-
+    /*qDebug() << 1;
+    delete actionButtonsLayout;
+    delete mainLayout;
+    delete playerCharsLayout;
+    delete enemyCharsLayout;
+    delete charsLayout;
+    qDebug() << 2;
+    delete attackButton;
+    delete blockButton;
+    delete dodgeButton;
+    qDebug() << 3;
+    delete playerCharsLabel;
+    delete enemyCharsLabel;
+    delete enemiesRemaining;
+    qDebug() << 4;
+    delete gameLog;
+    qDebug() << 5;
+    delete player;
+    delete enemy;
+    qDebug() << 6;
+    delete attackTimer;
+    delete blockTimer;
+    delete dodgeTimer;
+    qDebug() << 7;
+    delete enemyAttackTimer;
+    qDebug() << 8;*/
 }
 
 void GameWindow::attackAction() {
@@ -80,17 +106,17 @@ void GameWindow::attackAction() {
         attackButton->setEnabled(0);
         attackTimer->start(std::chrono::milliseconds(player->getAttackCooldown()));
 
-        double pre_attack_health = enemy.getEnemyHealth();
-        enemy.getAttacked(player->getPlayerDamage(), player->getIsDodged());
-        addToLog(QString("Caused " + QString::number(pre_attack_health - enemy.getEnemyHealth()) + " damage"));
-        if(enemy.getEnemyHealth() < 0) {
+        double pre_attack_health = enemy->getEnemyHealth();
+        enemy->getAttacked(player->getPlayerDamage(), player->getIsDodged());
+        addToLog(QString("Caused " + QString::number(pre_attack_health - enemy->getEnemyHealth()) + " damage"));
+        if(enemy->getEnemyHealth() < 0) {
             addToLog("Enemy died");
-            addToLog("You earned " + QString::number(enemy.getExpGain()) + " expirience");
-            player->addPlayerExp(enemy.getExpGain());
+            addToLog("You earned " + QString::number(enemy->getExpGain()) + " expirience");
+            player->addPlayerExp(enemy->getExpGain());
             passedEnemies += 1;
             enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
             if(passedEnemies == 5) {
-                delete enemyAttackTimer;
+                disconnect(enemyAttackTimer, &QTimer::timeout, this, &GameWindow::enemyAttack);
                 QMessageBox msgBox;
                 msgBox.setWindowTitle("You Won!");
                 msgBox.setText("You Won!");
@@ -98,7 +124,7 @@ void GameWindow::attackAction() {
                 this->close();
             }
             else {
-                enemy.enemyKilled();
+                enemy->enemyKilled();
             }
         }
         enemyCharsLabel->setText(createEnemyCharsLabel());
@@ -152,20 +178,20 @@ QString GameWindow::createPlayerCharsLabel() {
 }
 
 QString GameWindow::createEnemyCharsLabel() {
-    return ("HP: " + QString::number(enemy.getEnemyHealth()) + "\n" +
-    "DMG: " + QString::number(enemy.getEnemyDamage()) + "\n" +
-    "DFN: " + QString::number(enemy.getEnemyDefense()) + "\n" +
-    "AGI: " + QString::number(enemy.getEnemyAgility()));
+    return ("HP: " + QString::number(enemy->getEnemyHealth()) + "\n" +
+    "DMG: " + QString::number(enemy->getEnemyDamage()) + "\n" +
+    "DFN: " + QString::number(enemy->getEnemyDefense()) + "\n" +
+    "AGI: " + QString::number(enemy->getEnemyAgility()));
 }
 
 void GameWindow::enemyAttack() {
     double pre_attack_health = player->getPlayerHealth();
-    player->getAttacked(enemy.getEnemyDamage());
+    player->getAttacked(enemy->getEnemyDamage());
     addToLog(QString("Enemy caused " + QString::number(pre_attack_health - player->getPlayerHealth()) + " damage"));
     playerCharsLabel->setText(createPlayerCharsLabel());
 
     if(player->getPlayerHealth() < 0) {
-        delete enemyAttackTimer;
+        disconnect(enemyAttackTimer, &QTimer::timeout, this, &GameWindow::enemyAttack);
         QMessageBox msgBox;
         msgBox.setWindowTitle("You Lost!");
         msgBox.setText("You were killed");
@@ -180,6 +206,8 @@ void GameWindow::addToLog(QString text) {
 
 void GameWindow::closeEvent(QCloseEvent *event)
 {
+    delete enemyAttackTimer;
+
     emit windowClosed();
     event->accept();
 }

@@ -35,6 +35,7 @@ private:
     QVBoxLayout* upgradeButtonsLayout;
     QVBoxLayout* statisticLabelLayout;
     QHBoxLayout* mainUpgradeLayout;
+    QVBoxLayout* mainLayout;
 
     Character* player;
 

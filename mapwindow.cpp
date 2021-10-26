@@ -5,8 +5,9 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     player = new Character();
 
     forestMap = new QPushButton("Forest", this);
-    connect(forestMap, SIGNAL(clicked()), this, SLOT(mapOpened()));
+    connect(forestMap, SIGNAL(clicked()), this, SLOT(forestMapOpened()));
     sewerageMap = new QPushButton("Sewerage", this);
+    connect(sewerageMap, SIGNAL(clicked()), this, SLOT(sewereMapOpened()));
 
     upgradeWindow = new QPushButton("UPGRADE", this);
     connect(upgradeWindow, SIGNAL(clicked()), this, SLOT(upgradeOpened()));
@@ -37,8 +38,14 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     mainLayout->addWidget(upgradeWindow);
 }
 
-void MapWindow::mapOpened() {
-    gameTab = new GameWindow(*player);
+void MapWindow::forestMapOpened() {
+    gameTab = new GameWindow(*player, 7);
+    gameTab->show();
+    this->hide();
+    connect(gameTab, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+}
+void MapWindow::sewereMapOpened() {
+    gameTab = new GameWindow(*player, 10);
     gameTab->show();
     this->hide();
     connect(gameTab, SIGNAL(windowClosed()), this, SLOT(showWindow()));
@@ -47,10 +54,9 @@ void MapWindow::mapOpened() {
 void MapWindow::showWindow() {
     ExpLabel->setText(expLabelText());
     LvlLabel->setText(lvlLabelText());
-
-
+    player->setPlayerHealth(player->getPlayerMaxHealth());
     this->show();
-    //delete game;
+    //gameTab = nullptr;
 }
 
 void MapWindow::upgradeOpened() {

@@ -28,13 +28,13 @@ SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(par
     upgradeButtonsLayout->addWidget(blockSpeedUpgrade);
     upgradeButtonsLayout->addWidget(dodgeSpeedUpgrade);
 
-    healthStat = new QLabel("HP", this);
-    damageStat = new QLabel("DMG", this);
-    defenseStat = new QLabel("DEF", this);
-    agilityStat = new QLabel("AGI", this);
-    attackCooldownStat = new QLabel("HP", this);
-    blockCooldownStat = new QLabel("HP", this);
-    dodgeCooldownStat = new QLabel("HP", this);
+    healthStat = new QLabel(QString::number(player->getPlayerMaxHealth()), this);
+    damageStat = new QLabel(QString::number(player->getPlayerDamage()), this);
+    defenseStat = new QLabel(QString::number(player->getPlayerDefense()), this);
+    agilityStat = new QLabel(QString::number(player->getPlayerAgility()), this);
+    attackCooldownStat = new QLabel(QString::number(player->getAttackCooldown()), this);
+    blockCooldownStat = new QLabel(QString::number(player->getBlockCooldown()), this);
+    dodgeCooldownStat = new QLabel(QString::number(player->getDodgeCooldown()), this);
 
     statisticLabelLayout = new QVBoxLayout();
     statisticLabelLayout->addWidget(healthStat);
@@ -45,11 +45,16 @@ SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(par
     statisticLabelLayout->addWidget(blockCooldownStat);
     statisticLabelLayout->addWidget(dodgeCooldownStat);
 
-    mainUpgradeLayout = new QHBoxLayout(this);
+    mainLayout = new QVBoxLayout(this);
+
+    QLabel* textLabel = new QLabel("Choose option to upgrade", this);
+
+    mainUpgradeLayout = new QHBoxLayout();
     mainUpgradeLayout->addLayout(upgradeButtonsLayout);
     mainUpgradeLayout->addLayout(statisticLabelLayout);
 
-    this->setLayout(mainUpgradeLayout);
+    mainLayout->addWidget(textLabel);
+    mainLayout->addLayout(mainUpgradeLayout);
 }
 
 void SkillsWindow::upgradeHealth() {

@@ -14,6 +14,8 @@ public:
 
     void isDodgeSuccess();
 
+    int levelCheck(double exp);
+
     double getPlayerExp() const;
     void addPlayerExp(double);
 
