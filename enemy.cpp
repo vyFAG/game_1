@@ -28,7 +28,9 @@ void Enemy::getAttacked(double damage, bool playerDodged) {
         damage -= enemyDefense;
     }
 
-    enemyHealth -= damage;
+    if (damage > 0) {
+        enemyHealth -= damage;
+    }
 }
 
 void Enemy::enemyKilled() {

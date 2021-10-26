@@ -21,6 +21,12 @@ public:
 private:
     QPushButton* forestMap;
     QPushButton* sewerageMap;
+    QPushButton* mountainMap;
+    QPushButton* caveMap;
+    QPushButton* darkValleyMap;
+    QPushButton* ancientCastleMap;
+    QPushButton* diabloThroneMap;
+
     QPushButton* upgradeWindow;
 
     QLabel* LvlLabel;
@@ -42,6 +48,12 @@ private:
 private slots:
     void forestMapOpened();
     void sewereMapOpened();
+    void mountainMapOpened();
+    void caveMapOpened();
+    void darkValleyMapOpened();
+    void ancientCastleMapOpened();
+    void diabloThroneMapOpened();
+
     void showWindow();
     void upgradeOpened();
 

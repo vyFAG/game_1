@@ -211,5 +211,3 @@ void GameWindow::closeEvent(QCloseEvent *event)
     emit windowClosed();
     event->accept();
 }
-
-//void GameWindow::fightFunc() {}
