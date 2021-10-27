@@ -14,6 +14,7 @@ class SkillsWindow : public QWidget
     Q_OBJECT
 public:
     explicit SkillsWindow(Character& set_player, QWidget *parent = nullptr);
+    void skillPointsChanged();
 
 private:
     QPushButton* healthUpgradeButton;
@@ -32,8 +33,12 @@ private:
     QLabel* blockCooldownStat;
     QLabel* dodgeCooldownStat;
 
+    QLabel* skillPointsLabel;
+    QLabel* cannotUpgradeLabel;
+
     QVBoxLayout* upgradeButtonsLayout;
     QVBoxLayout* statisticLabelLayout;
+    QVBoxLayout* informationLayout;
     QHBoxLayout* mainUpgradeLayout;
     QVBoxLayout* mainLayout;
 

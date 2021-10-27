@@ -77,6 +77,12 @@ int Character::getUpgradePoints() const {
     return upgradePoints;
 }
 
+void Character::decreaseUpgradePoints() {
+    if(upgradePoints > 0) {
+        upgradePoints -= 1;
+    }
+}
+
 int Character::getPlayerLvl() const {
     return playerLvl;
 }

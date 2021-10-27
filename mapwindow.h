@@ -7,6 +7,10 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include <QPixmap>
+#include <QIcon>
+#include <fstream>
+#include <direct.h>
 #include <character.h>
 
 #include "gamewindow.h"
@@ -44,6 +48,11 @@ private:
 
     QString expLabelText();
     QString lvlLabelText();
+
+    QPixmap* forestMapPix;
+    QIcon* forestMapIcon;
+    QPixmap* sewerageMapPix;
+    QPixmap* mountainMapPix;
 
 private slots:
     void forestMapOpened();

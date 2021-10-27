@@ -20,6 +20,7 @@ public:
     void addPlayerExp(double);
 
     int getUpgradePoints() const;
+    void decreaseUpgradePoints();
 
     int getPlayerLvl() const;
     //void addPlayerLvl(double);

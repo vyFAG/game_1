@@ -5,17 +5,30 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     setMinimumSize(320, 240);
     setMaximumSize(320, 240);
 
+    this->setStyleSheet("background-color: #404040");
+
+    //forestMapPix = new QPixmap("/sprites/forest_map.png");
+
     player = new Character();
 
-    forestMap = new QPushButton("Forest", this);
-    forestMap->setMinimumHeight(80);
+    forestMap = new QPushButton(this);
+    forestMap->setFixedSize(80, 80);
+    forestMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\forest_map.png"));
+    forestMap->setIconSize(QSize(80, 80));
     connect(forestMap, SIGNAL(clicked()), this, SLOT(forestMapOpened()));
-    sewerageMap = new QPushButton("Sewerage", this);
-    sewerageMap->setMinimumHeight(80);
+
+    sewerageMap = new QPushButton(this);
+    sewerageMap->setFixedSize(80, 80);
+    sewerageMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\sewerage_map.png"));
+    sewerageMap->setIconSize(QSize(80, 80));
     connect(sewerageMap, SIGNAL(clicked()), this, SLOT(sewereMapOpened()));
-    mountainMap = new QPushButton("Mountain", this);
-    mountainMap->setMinimumHeight(80);
+
+    mountainMap = new QPushButton(this);
+    mountainMap->setFixedSize(80, 80);
+    mountainMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\mountain_map.png"));
+    mountainMap->setIconSize(QSize(80, 80));
     connect(mountainMap, SIGNAL(clicked()), this, SLOT(mountainMapOpened()));
+
     caveMap = new QPushButton("Cave", this);
     caveMap->setMinimumHeight(80);
     connect(caveMap, SIGNAL(clicked()), this, SLOT(caveMapOpened()));
