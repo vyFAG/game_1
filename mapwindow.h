@@ -9,6 +9,8 @@
 #include <QScrollArea>
 #include <QPixmap>
 #include <QIcon>
+#include <QScrollBar>
+#include <QApplication>
 #include <fstream>
 #include <direct.h>
 #include <character.h>
@@ -40,6 +42,7 @@ private:
     QHBoxLayout* mapsLayout;
     QHBoxLayout* playerExp;
     QScrollArea* mapsScrollArea;
+    QWidget* scrollWidget;
 
     GameWindow* gameTab;
     SkillsWindow* upgradeTab;
@@ -53,6 +56,7 @@ private:
     QIcon* forestMapIcon;
     QPixmap* sewerageMapPix;
     QPixmap* mountainMapPix;
+    void resizeEvent(QResizeEvent *);
 
 private slots:
     void forestMapOpened();

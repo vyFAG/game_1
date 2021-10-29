@@ -2,41 +2,50 @@
 
 MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 {
-    setMinimumSize(320, 240);
-    setMaximumSize(320, 240);
+    QApplication::setStyle("cleanlooks");
 
     this->setStyleSheet("background-color: #404040");
+    this->setMinimumHeight(320);
 
     //forestMapPix = new QPixmap("/sprites/forest_map.png");
 
     player = new Character();
 
     forestMap = new QPushButton(this);
-    forestMap->setFixedSize(80, 80);
+    forestMap->setFixedSize(160, 160);
+    forestMap->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     forestMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\forest_map.png"));
-    forestMap->setIconSize(QSize(80, 80));
+    forestMap->setIconSize(QSize(160, 160));
     connect(forestMap, SIGNAL(clicked()), this, SLOT(forestMapOpened()));
 
     sewerageMap = new QPushButton(this);
-    sewerageMap->setFixedSize(80, 80);
+    sewerageMap->setFixedSize(160, 160);
     sewerageMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\sewerage_map.png"));
-    sewerageMap->setIconSize(QSize(80, 80));
+    sewerageMap->setIconSize(QSize(160, 160));
     connect(sewerageMap, SIGNAL(clicked()), this, SLOT(sewereMapOpened()));
 
     mountainMap = new QPushButton(this);
-    mountainMap->setFixedSize(80, 80);
+    mountainMap->setFixedSize(160, 160);
     mountainMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\mountain_map.png"));
-    mountainMap->setIconSize(QSize(80, 80));
+    mountainMap->setIconSize(QSize(160, 160));
     connect(mountainMap, SIGNAL(clicked()), this, SLOT(mountainMapOpened()));
 
-    caveMap = new QPushButton("Cave", this);
-    caveMap->setMinimumHeight(80);
+    caveMap = new QPushButton(this);
+    caveMap->setFixedSize(160, 160);
+    caveMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\cave_map.png"));
+    caveMap->setIconSize(QSize(160, 160));
     connect(caveMap, SIGNAL(clicked()), this, SLOT(caveMapOpened()));
-    darkValleyMap = new QPushButton("Dark Valley", this);
-    darkValleyMap->setMinimumHeight(80);
+
+    darkValleyMap = new QPushButton(this);
+    darkValleyMap->setFixedSize(160, 160);
+    darkValleyMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\dark_valley_map.png"));
+    darkValleyMap->setIconSize(QSize(160, 160));
     connect(darkValleyMap, SIGNAL(clicked()), this, SLOT(darkValleyMapOpened()));
-    ancientCastleMap = new QPushButton("Ancient Castle", this);
-    ancientCastleMap->setMinimumHeight(80);
+
+    ancientCastleMap = new QPushButton(this);
+    ancientCastleMap->setFixedSize(160, 160);
+    ancientCastleMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\ancient_castle_map.png"));
+    ancientCastleMap->setIconSize(QSize(160, 160));
     connect(ancientCastleMap, SIGNAL(clicked()), this, SLOT(ancientCastleMapOpened()));
     diabloThroneMap = new QPushButton("Diablo's Throne", this);
     diabloThroneMap->setMinimumHeight(80);
@@ -60,6 +69,15 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 
     mapsLayout = new QHBoxLayout(this);
     mapsScrollArea = new QScrollArea(this);
+    QScrollBar* mapsScrollAreaBar = new QScrollBar(Qt::Vertical);
+    mapsScrollAreaBar->setStyleSheet("QScrollBar:horizontal {"
+                                        "    border: 0px solid #c6c6c6;"
+                                        "    background: transparent;"
+                                        "    height: 13px;    "
+                                        "    margin: 0px 0px 0px 0px;"
+                                        "}");
+    mapsScrollArea->setHorizontalScrollBar(mapsScrollAreaBar);
+    mapsScrollArea->setStyleSheet("border: 0px");
 
     mainLayout->addLayout(playerExp);
 
@@ -71,9 +89,11 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     mapsLayout->addWidget(ancientCastleMap);
     mapsLayout->addWidget(diabloThroneMap);
 
-    QWidget* widget = new QWidget;
-    widget -> setLayout(mapsLayout);
-    mapsScrollArea -> setWidget(widget);
+    scrollWidget = new QWidget;
+    scrollWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scrollWidget->setLayout(mapsLayout);
+    mapsScrollArea->setWidget(scrollWidget);
+    mapsScrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     mapsScrollArea->show();
     mapsScrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -132,6 +152,10 @@ void MapWindow::diabloThroneMapOpened() {
     gameTab->show();
     this->hide();
     connect(gameTab, SIGNAL(windowClosed()), this, SLOT(showWindow()));
+}
+
+void MapWindow::resizeEvent(QResizeEvent *) {
+    qDebug() << this->width() << ' ' << this->height();
 }
 
 void MapWindow::showWindow() {
