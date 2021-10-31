@@ -35,7 +35,6 @@ private:
 
     QPushButton* attackButton;
     QPushButton* blockButton;
-    QPushButton* dodgeButton;
 
     QLabel* playerCharsLabel;
     QLabel* enemyCharsLabel;
@@ -52,7 +51,6 @@ private:
 
     QTimer *attackTimer;
     QTimer *blockTimer;
-    QTimer *dodgeTimer;
 
     QTimer *enemyAttackTimer;
 
@@ -70,11 +68,9 @@ signals:
 private slots:
     void attackAction();
     void blockAction();
-    void dodgeAction();
 
     void attackButtonEnable();
     void blockButtonEnable();
-    void dodgeButtonEnable();
 
     void enemyAttack();
 };

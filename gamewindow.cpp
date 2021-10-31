@@ -5,11 +5,17 @@ GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
 {
     absHealth = set_player.getPlayerHealth();
 
+    QPixmap* backgroundImage = new QPixmap("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\map_background_image.png");
+    QPalette* palette = new QPalette();
+    palette->setBrush(QPalette::Window, *backgroundImage);
+    this->setPalette(*palette);
+
+    QFont* labelsFont = new QFont("Cambria", 20, QFont::Bold);
+
     player = &set_player;
     enemy = new Enemy(multiplier);
 
-    this->setMinimumSize(320, 240);
-    this->setMaximumSize(640, 480);
+    this->setFixedSize(640, 480);
     actionButtonsLayout = new QHBoxLayout();
     mainLayout = new QVBoxLayout(this);
 
@@ -30,17 +36,16 @@ GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
     attackButton = new QPushButton("Attack", this);
     attackButton->setMaximumHeight(50);
     attackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    attackButton->setStyleSheet("color: #ffffff; background-color: #404040");
+    attackButton->setFont(*labelsFont);
     connect(attackButton, SIGNAL(clicked()), this, SLOT(attackAction()));
 
     blockButton = new QPushButton("Block", this);
     blockButton->setMaximumHeight(50);
     blockButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    blockButton->setStyleSheet("color: #ffffff; background-color: #404040");
+    blockButton->setFont(*labelsFont);
     connect(blockButton, SIGNAL(clicked()), this, SLOT(blockAction()));
-
-    dodgeButton = new QPushButton("Dodge", this);
-    dodgeButton->setMaximumHeight(50);
-    dodgeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    connect(dodgeButton, SIGNAL(clicked()), this, SLOT(dodgeAction()));
 
     gameLog = new QTextEdit();
     gameLog->setMaximumHeight(200);
@@ -48,7 +53,6 @@ GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
 
     actionButtonsLayout->addWidget(attackButton);
     actionButtonsLayout->addWidget(blockButton);
-    actionButtonsLayout->addWidget(dodgeButton);
 
     //actionButtonsLayout->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
@@ -103,6 +107,7 @@ void GameWindow::attackAction() {
         attackTimer = new QTimer(this);
         connect(attackTimer, &QTimer::timeout, this, &GameWindow::attackButtonEnable);
         attackInterval = std::chrono::high_resolution_clock::now();
+        attackButton->setStyleSheet("color: #505050; background-color: #404040");
         attackButton->setEnabled(0);
         attackTimer->start(std::chrono::milliseconds(player->getAttackCooldown()));
 
@@ -137,37 +142,23 @@ void GameWindow::blockAction() {
         blockTimer = new QTimer(this);
         connect(blockTimer, &QTimer::timeout, this, &GameWindow::blockButtonEnable);
         blockInterval = std::chrono::high_resolution_clock::now();
+        blockButton->setStyleSheet("color: #505050; background-color: #404040");
         blockButton->setEnabled(0);
         blockTimer->start(std::chrono::milliseconds(player->getBlockCooldown()));
     }
 }
 
-void GameWindow::dodgeAction() {
-    if(std::chrono::high_resolution_clock::now() - dodgeInterval > std::chrono::milliseconds(player->getDodgeCooldown())) {
-        dodgeTimer = new QTimer(this);
-        connect(dodgeTimer, &QTimer::timeout, this, &GameWindow::dodgeButtonEnable);
-        dodgeInterval = std::chrono::high_resolution_clock::now();
-        dodgeButton->setEnabled(0);
-        dodgeTimer->start(std::chrono::milliseconds(player->getDodgeCooldown()));
-        player->isDodgeSuccess();
-    }
-}
-
 void GameWindow::attackButtonEnable() {
+    attackButton->setStyleSheet("color: #ffffff; background-color: #404040");
     attackButton->setEnabled(1);
     delete attackTimer;
 }
 
 void GameWindow::blockButtonEnable() {
     player->setIsBlocked(0);
+    blockButton->setStyleSheet("color: #ffffff; background-color: #404040");
     blockButton->setEnabled(1);
     delete blockTimer;
-}
-
-void GameWindow::dodgeButtonEnable() {
-    player->setIsDodged(2);
-    dodgeButton->setEnabled(1);
-    delete dodgeTimer;
 }
 
 QString GameWindow::createPlayerCharsLabel() {

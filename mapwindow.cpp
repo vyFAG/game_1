@@ -4,12 +4,30 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 {
     QApplication::setStyle("cleanlooks");
 
-    this->setStyleSheet("background-color: #404040");
-    this->setMinimumHeight(320);
+    QPixmap* backgroundImage = new QPixmap("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\background_image.png");
+    QPalette* palette = new QPalette();
+    palette->setBrush(QPalette::Window, *backgroundImage);
+    this->setPalette(*palette);
 
-    //forestMapPix = new QPixmap("/sprites/forest_map.png");
+    //this->setMinimumSize(480, 360);
+    this->setFixedSize(640, 480);
+    //this->setContentsMargins(0, 0, 0, 0);
 
     player = new Character();
+
+    //frameImage = new QPixmap("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\map_side_frame.png");
+
+    //leftFrame = new QLabel(this);
+    //leftFrame->setPixmap(*frameImage);
+    //leftFrame->setFixedSize(48, 1080);
+    //leftFrame->show();
+
+    //rightFrame = new QLabel(this);
+    //rightFrame->setPixmap(*frameImage);
+    //rightFrame->setFixedSize(48, 1080);
+    //rightFrame->show();
+
+    frameLayout = new QHBoxLayout();
 
     forestMap = new QPushButton(this);
     forestMap->setFixedSize(160, 160);
@@ -47,21 +65,32 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     ancientCastleMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\ancient_castle_map.png"));
     ancientCastleMap->setIconSize(QSize(160, 160));
     connect(ancientCastleMap, SIGNAL(clicked()), this, SLOT(ancientCastleMapOpened()));
+
     diabloThroneMap = new QPushButton("Diablo's Throne", this);
     diabloThroneMap->setMinimumHeight(80);
     connect(diabloThroneMap, SIGNAL(clicked()), this, SLOT(diabloThroneMapOpened()));
 
+    QFont* labelsFont = new QFont("Cambria", 20, QFont::Bold);
+
     upgradeWindow = new QPushButton("UPGRADE", this);
     upgradeWindow->setMaximumHeight(50);
     upgradeWindow->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    upgradeWindow->setStyleSheet("color: #ffffff; background-color: #404040");
+    upgradeWindow->setFont(*labelsFont);
+
     connect(upgradeWindow, SIGNAL(clicked()), this, SLOT(upgradeOpened()));
 
     mainLayout = new QVBoxLayout(this);
 
     ExpLabel = new QLabel(expLabelText(), this);
-    ExpLabel->setAlignment(Qt::AlignCenter);
+    ExpLabel->setAlignment(Qt::AlignRight);
+    ExpLabel->setStyleSheet("padding-top: 10px; padding-right: 20px; color: #ffffff");
+    ExpLabel->setFont(*labelsFont);
+
     LvlLabel = new QLabel(lvlLabelText(), this);
-    LvlLabel->setAlignment(Qt::AlignCenter);
+    LvlLabel->setAlignment(Qt::AlignLeft);
+    LvlLabel->setStyleSheet("padding-top: 10px; padding-left: 20px; color: #ffffff");
+    LvlLabel->setFont(*labelsFont);
 
     playerExp = new QHBoxLayout(this);
     playerExp->addWidget(ExpLabel);
@@ -79,8 +108,6 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     mapsScrollArea->setHorizontalScrollBar(mapsScrollAreaBar);
     mapsScrollArea->setStyleSheet("border: 0px");
 
-    mainLayout->addLayout(playerExp);
-
     mapsLayout->addWidget(forestMap);
     mapsLayout->addWidget(sewerageMap);
     mapsLayout->addWidget(mountainMap);
@@ -92,17 +119,29 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
     scrollWidget = new QWidget;
     scrollWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scrollWidget->setLayout(mapsLayout);
+    scrollWidget->setStyleSheet("background-color: rgba(0, 0, 0, 0);");
+
     mapsScrollArea->setWidget(scrollWidget);
     mapsScrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    mapsScrollArea->show();
-    mapsScrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mapsScrollArea->setStyleSheet("background-color: rgba(0, 0, 0, 0); border: 0px;");
+    //mapsScrollArea->show();
 
     QLabel* inforamtionLabel = new QLabel("Choose the map", this);
     inforamtionLabel->setAlignment(Qt::AlignCenter);
+    inforamtionLabel->setStyleSheet("padding-top: 10px; color: #ffffff");
+    inforamtionLabel->setFont(*labelsFont);
 
+    mainLayout->addLayout(playerExp);
     mainLayout->addWidget(inforamtionLabel);
     mainLayout->addWidget(mapsScrollArea);
     mainLayout->addWidget(upgradeWindow);
+
+    //frameLayout->addWidget(leftFrame);
+    //frameLayout->addLayout(mainLayout);
+    //frameLayout->addWidget(rightFrame);
+    //frameLayout->setContentsMargins(0, 0, 0, 0);
+
+    //setLayout(frameLayout);
 }
 
 void MapWindow::forestMapOpened() {

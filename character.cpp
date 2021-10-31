@@ -10,7 +10,6 @@ Character::Character(QWidget *parent) : QWidget(parent)
 
     attackCooldown = 1500;
     blockCooldown = 1500;
-    dodgeCooldown = 5000;
 }
 
 void Character::isDodgeSuccess() {
@@ -46,7 +45,6 @@ Character& Character::operator=(const Character& left_var) {
 
     attackCooldown = left_var.getAttackCooldown();
     blockCooldown = left_var.getBlockCooldown();
-    dodgeCooldown = left_var.getDodgeCooldown();
 
     return *this;
 }
@@ -134,13 +132,6 @@ int Character::getBlockCooldown() const{
 }
 void Character::setBlockCooldown(int value) {
     blockCooldown = value;
-}
-
-int Character::getDodgeCooldown() const{
-    return dodgeCooldown;
-}
-void Character::setDodgeCooldown(int value) {
-    dodgeCooldown = value;
 }
 
 bool Character::getIsBlocked() const{

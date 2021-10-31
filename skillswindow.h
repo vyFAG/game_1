@@ -23,7 +23,6 @@ private:
     QPushButton* agilityUpgradeButton;
     QPushButton* attackSpeedUpgrade;
     QPushButton* blockSpeedUpgrade;
-    QPushButton* dodgeSpeedUpgrade;
 
     QLabel* healthStat;
     QLabel* damageStat;
@@ -31,7 +30,6 @@ private:
     QLabel* agilityStat;
     QLabel* attackCooldownStat;
     QLabel* blockCooldownStat;
-    QLabel* dodgeCooldownStat;
 
     QLabel* skillPointsLabel;
     QLabel* cannotUpgradeLabel;
@@ -53,7 +51,6 @@ private slots:
     void upgradeAgility();
     void upgradeAttackSpeed();
     void upgradeBlockSpeed();
-    void upgradeDodgeSpeed();
 
 };
 

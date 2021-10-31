@@ -11,6 +11,8 @@
 #include <QIcon>
 #include <QScrollBar>
 #include <QApplication>
+#include <QPixmap>
+#include <QPalette>
 #include <fstream>
 #include <direct.h>
 #include <character.h>
@@ -38,9 +40,15 @@ private:
     QLabel* LvlLabel;
     QLabel* ExpLabel;
 
+    QPixmap* frameImage;
+
+    QLabel* leftFrame;
+    QLabel* rightFrame;
+
     QVBoxLayout* mainLayout;
     QHBoxLayout* mapsLayout;
     QHBoxLayout* playerExp;
+    QHBoxLayout* frameLayout;
     QScrollArea* mapsScrollArea;
     QWidget* scrollWidget;
 

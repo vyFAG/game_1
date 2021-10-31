@@ -67,7 +67,7 @@ private:
 
     int attackCooldown;
     int blockCooldown;
-    int dodgeCooldown;
+
 signals:
 
 };

@@ -16,8 +16,6 @@ SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(par
     connect(attackSpeedUpgrade, SIGNAL(clicked()), this, SLOT(upgradeAttackSpeed()));
     blockSpeedUpgrade = new QPushButton("Block cooldown", this);
     connect(blockSpeedUpgrade, SIGNAL(clicked()), this, SLOT(upgradeBlockSpeed()));
-    dodgeSpeedUpgrade = new QPushButton("Dodge cooldown", this);
-    connect(dodgeSpeedUpgrade, SIGNAL(clicked()), this, SLOT(upgradeDodgeSpeed()));
 
     upgradeButtonsLayout = new QVBoxLayout();
     upgradeButtonsLayout->addWidget(healthUpgradeButton);
@@ -26,7 +24,6 @@ SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(par
     upgradeButtonsLayout->addWidget(agilityUpgradeButton);
     upgradeButtonsLayout->addWidget(attackSpeedUpgrade);
     upgradeButtonsLayout->addWidget(blockSpeedUpgrade);
-    upgradeButtonsLayout->addWidget(dodgeSpeedUpgrade);
 
     skillPointsLabel = new QLabel("You have " + QString::number(player->getUpgradePoints()) + " skillpoints", this);
     cannotUpgradeLabel = new QLabel("You don't have enough skillpoints", this);
@@ -42,7 +39,6 @@ SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(par
     agilityStat = new QLabel(QString::number(player->getPlayerAgility()), this);
     attackCooldownStat = new QLabel(QString::number(player->getAttackCooldown()), this);
     blockCooldownStat = new QLabel(QString::number(player->getBlockCooldown()), this);
-    dodgeCooldownStat = new QLabel(QString::number(player->getDodgeCooldown()), this);
 
     statisticLabelLayout = new QVBoxLayout();
     statisticLabelLayout->addWidget(healthStat);
@@ -51,7 +47,6 @@ SkillsWindow::SkillsWindow(Character& set_player, QWidget *parent) : QWidget(par
     statisticLabelLayout->addWidget(agilityStat);
     statisticLabelLayout->addWidget(attackCooldownStat);
     statisticLabelLayout->addWidget(blockCooldownStat);
-    statisticLabelLayout->addWidget(dodgeCooldownStat);
 
     mainLayout = new QVBoxLayout(this);
 
@@ -133,18 +128,6 @@ void SkillsWindow::upgradeBlockSpeed() {
     if(player->getUpgradePoints() != 0) {
         player->setBlockCooldown(player->getBlockCooldown() * 0.9);
         blockCooldownStat->setText(QString::number(player->getBlockCooldown()));
-
-        player->decreaseUpgradePoints();
-        skillPointsChanged();
-    }
-    else {
-        cannotUpgradeLabel->show();
-    }
-}
-void SkillsWindow::upgradeDodgeSpeed() {
-    if(player->getUpgradePoints() != 0) {
-        player->setDodgeCooldown(player->getDodgeCooldown() * 0.9);
-        dodgeCooldownStat->setText(QString::number(player->getDodgeCooldown()));
 
         player->decreaseUpgradePoints();
         skillPointsChanged();
