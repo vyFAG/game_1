@@ -9,6 +9,7 @@ class Character : public QWidget
     Q_OBJECT
 public:
     explicit Character(QWidget *parent = nullptr);
+    virtual ~Character() {};
 
     void getAttacked(double damage);
 
