@@ -2,19 +2,19 @@
 
 Character::Character(QWidget *parent) : QWidget(parent)
 {
+    playerMaxHealth = 50;
     playerHealth = 50;
-    palyerDamage = 10;
-    palyerDefense = 5;
-    palyerAgility = 0.1;
+    playerDamage = 10;
+    playerDefense = 5;
+    playerAgility = 0.1;
 
     attackCooldown = 1500;
     blockCooldown = 1500;
-    dodgeCooldown = 5000;
 }
 
 void Character::isDodgeSuccess() {
     std::uniform_real_distribution<> boolDodge(0, 1);
-    if(boolDodge(*QRandomGenerator::global()) <= palyerAgility) {
+    if(boolDodge(*QRandomGenerator::global()) <= playerAgility) {
         isDodged = 1;
     }
     else {
@@ -37,41 +37,111 @@ void Character::getAttacked(double damage) {
     }
 }
 
-double Character::getPlayerHealth() {
+Character& Character::operator=(const Character& left_var) {
+    playerHealth = left_var.getPlayerHealth();
+    playerDamage = left_var.getPlayerDamage();
+    playerDefense = left_var.getPlayerDefense();
+    playerAgility = left_var.getPlayerAgility();
+
+    attackCooldown = left_var.getAttackCooldown();
+    blockCooldown = left_var.getBlockCooldown();
+
+    return *this;
+}
+
+int Character::levelCheck(double exp) {
+    int tmp_exp = 0;
+    int tmp_level = 1;
+    while(tmp_exp + 10 < exp) {
+        tmp_exp += 10;
+        tmp_level++;
+    }
+
+    return tmp_level;
+}
+
+double Character::getPlayerExp() const {
+    return playerExp;
+}
+void Character::addPlayerExp(double value) {
+    playerExp += value;
+    if(levelCheck(playerExp) > playerLvl) {
+        playerLvl += 1;
+        upgradePoints += 1;
+    }
+}
+
+int Character::getUpgradePoints() const {
+    return upgradePoints;
+}
+
+void Character::decreaseUpgradePoints() {
+    if(upgradePoints > 0) {
+        upgradePoints -= 1;
+    }
+}
+
+int Character::getPlayerLvl() const {
+    return playerLvl;
+}
+
+double Character::getPlayerMaxHealth() const {
+    return playerMaxHealth;
+}
+void Character::setPlayerMaxHealth(double value) {
+    playerMaxHealth = static_cast<double>(static_cast<int>(value * 10)) / 10;
+}
+
+double Character::getPlayerHealth() const{
     return playerHealth;
 }
-
-double Character::getPlayerDamage() {
-    return palyerDamage;
+void Character::setPlayerHealth(double value) {
+    playerHealth = static_cast<double>(static_cast<int>(value * 10)) / 10;
 }
 
-double Character::getPlayerDefense() {
-    return palyerDefense;
+double Character::getPlayerDamage() const{
+    return playerDamage;
+}
+void Character::setPlayerDamage(double value) {
+    playerDamage = static_cast<double>(static_cast<int>(value * 10)) / 10;
 }
 
-double Character::getPlayerAgility() {
-    return palyerAgility;
+double Character::getPlayerDefense() const{
+    return playerDefense;
+}
+void Character::setPlayerDefense(double value) {
+    playerDefense = static_cast<double>(static_cast<int>(value * 10)) / 10;
 }
 
-int Character::getAttackCooldown() {
+double Character::getPlayerAgility() const{
+    return playerAgility;
+}
+void Character::setPlayerAgility(double value) {
+    playerAgility = static_cast<double>(static_cast<int>(value * 10)) / 10;
+}
+
+int Character::getAttackCooldown() const{
     return attackCooldown;
 }
-int Character::getBlockCooldown() {
+void Character::setAttackCooldown(int value) {
+    attackCooldown = value;
+}
+
+int Character::getBlockCooldown() const{
     return blockCooldown;
 }
-int Character::getDodgeCooldown() {
-    return dodgeCooldown;
+void Character::setBlockCooldown(int value) {
+    blockCooldown = value;
 }
 
-bool Character::getIsBlocked() {
+bool Character::getIsBlocked() const{
     return isBlocked;
 }
-
 void Character::setIsBlocked(bool value){
     isBlocked = value;
 }
 
-int Character::getIsDodged() {
+int Character::getIsDodged() const{
     return isDodged;
 }
 

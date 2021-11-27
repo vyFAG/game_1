@@ -10,6 +10,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QTimer>
+#include <QFile>
+#include <QFileInfo>
+#include <QCoreApplication>
 #include <chrono>
 #include <QCloseEvent>
 
@@ -21,7 +24,7 @@ class GameWindow : public QWidget
     Q_OBJECT
 
 public:
-    GameWindow(QWidget *parent = nullptr);
+    GameWindow(Character& set_player, int multiplier, QWidget *parent = nullptr);
     ~GameWindow();
     void addToLog(QString);
     void closeEvent(QCloseEvent *event);
@@ -35,7 +38,6 @@ private:
 
     QPushButton* attackButton;
     QPushButton* blockButton;
-    QPushButton* dodgeButton;
 
     QLabel* playerCharsLabel;
     QLabel* enemyCharsLabel;
@@ -43,8 +45,8 @@ private:
 
     QTextEdit* gameLog;
 
-    Character player;
-    Enemy enemy;
+    Character* player;
+    Enemy* enemy;
 
     std::chrono::high_resolution_clock::time_point attackInterval = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point blockInterval = std::chrono::high_resolution_clock::now();
@@ -52,7 +54,6 @@ private:
 
     QTimer *attackTimer;
     QTimer *blockTimer;
-    QTimer *dodgeTimer;
 
     QTimer *enemyAttackTimer;
 
@@ -61,17 +62,18 @@ private:
 
     int passedEnemies = 0;
 
+    double expGained = 0;
+    double absHealth = 0;
+
 signals:
     void windowClosed();
 
 private slots:
     void attackAction();
     void blockAction();
-    void dodgeAction();
 
     void attackButtonEnable();
     void blockButtonEnable();
-    void dodgeButtonEnable();
 
     void enemyAttack();
 };

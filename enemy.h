@@ -8,16 +8,17 @@ class Enemy : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Enemy(QWidget *parent = nullptr);
+    explicit Enemy(int set_multiplier, QWidget *parent = nullptr);
 
     void getAttacked(double damage, bool playerDodged);
 
     void enemyKilled();
 
-    double getEnemyHealth();
-    double getEnemyDamage();
-    double getEnemyDefense();
-    double getEnemyAgility();
+    double getEnemyHealth() const;
+    double getEnemyDamage() const;
+    double getEnemyDefense() const;
+    double getEnemyAgility() const;
+    double getExpGain() const;
 
     int getAttackCooldown();
 
@@ -26,8 +27,11 @@ private:
     double enemyDamage;
     double enemyDefense;
     double enemyAgility;
+    double enemyExpGain;
 
     int attackCooldown;
+
+    int multiplier;
 signals:
 
 };

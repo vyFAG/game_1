@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-Enemy::Enemy(QWidget *parent) : QWidget(parent)
+Enemy::Enemy(int set_multiplier, QWidget *parent) : QWidget(parent), multiplier(set_multiplier)
 {
     std::uniform_real_distribution<> real_part(0, 1);
     std::uniform_int_distribution<> int_part(1, 5);
@@ -30,7 +30,9 @@ void Enemy::getAttacked(double damage, bool playerDodged) {
         damage -= enemyDefense;
     }
 
-    enemyHealth -= damage;
+    if (damage > 0) {
+        enemyHealth -= damage;
+    }
 }
 
 void Enemy::enemyKilled() {
@@ -47,20 +49,24 @@ void Enemy::enemyKilled() {
     attackCooldown = attackCooldownRand(*QRandomGenerator::global());
 }
 
-double Enemy::getEnemyHealth() {
+double Enemy::getEnemyHealth() const{
     return enemyHealth;
 }
 
-double Enemy::getEnemyDamage() {
+double Enemy::getEnemyDamage() const{
     return enemyDamage;
 }
 
-double Enemy::getEnemyDefense() {
+double Enemy::getEnemyDefense() const{
     return enemyDefense;
 }
 
-double Enemy::getEnemyAgility() {
+double Enemy::getEnemyAgility() const{
     return enemyAgility;
+}
+
+double Enemy::getExpGain() const {
+    return enemyExpGain;
 }
 
 int Enemy::getAttackCooldown() {
