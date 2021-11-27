@@ -198,7 +198,6 @@ void GameWindow::enemyAttack() {
     player->getAttacked(enemy->getEnemyDamage());
     addToLog(QString("Enemy caused " + QString::number(pre_attack_health - player->getPlayerHealth()) + " damage"));
     playerCharsLabel->setText(createPlayerCharsLabel());
-
     if(player->getPlayerHealth() < 0) {
         disconnect(enemyAttackTimer, &QTimer::timeout, this, &GameWindow::enemyAttack);
         QMessageBox msgBox;
