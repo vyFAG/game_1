@@ -13,7 +13,8 @@
 #include <QApplication>
 #include <QPixmap>
 #include <QPalette>
-#include <fstream>
+#include <QFile>
+#include <QFileInfo>
 #include <direct.h>
 #include <character.h>
 

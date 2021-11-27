@@ -10,6 +10,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QTimer>
+#include <QFile>
+#include <QFileInfo>
+#include <QCoreApplication>
 #include <chrono>
 #include <QCloseEvent>
 

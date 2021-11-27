@@ -4,7 +4,19 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 {
     QApplication::setStyle("cleanlooks");
 
-    QPixmap* backgroundImage = new QPixmap("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\background_image.png");
+    //qDebug() << QFileInfo(QCoreApplication::applicationDirPath()).absoluteFilePath();
+
+    QFile backgroundImageFile(QCoreApplication::applicationDirPath() + "/sprites/background_image.png");
+    QFile forestMapIcon(QCoreApplication::applicationDirPath() + "/sprites/forest_map.png");
+    QFile sewerageMapIcon(QCoreApplication::applicationDirPath() + "/sprites/sewerage_map.png");
+    QFile mountainMapIcon(QCoreApplication::applicationDirPath() + "/sprites/mountain_map.png");
+    QFile caveMapIcon(QCoreApplication::applicationDirPath() + "/sprites/cave_map.png");
+    QFile darkValleyMapIcon(QCoreApplication::applicationDirPath() + "/sprites/dark_valley_map.png");
+    QFile ancientCastleMapIcon(QCoreApplication::applicationDirPath() + "/sprites/ancient_castle_map.png");
+
+    QFileInfo* fileInfoPath = new QFileInfo(backgroundImageFile);
+
+    QPixmap* backgroundImage = new QPixmap(fileInfoPath->absoluteFilePath());
     QPalette* palette = new QPalette();
     palette->setBrush(QPalette::Window, *backgroundImage);
     this->setPalette(*palette);
@@ -29,40 +41,46 @@ MapWindow::MapWindow(QWidget *parent) : QWidget(parent)
 
     frameLayout = new QHBoxLayout();
 
+    fileInfoPath = new QFileInfo(forestMapIcon);
     forestMap = new QPushButton(this);
     forestMap->setFixedSize(160, 160);
     forestMap->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    forestMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\forest_map.png"));
+    forestMap->setIcon(QIcon(fileInfoPath->absoluteFilePath()));
     forestMap->setIconSize(QSize(160, 160));
     connect(forestMap, SIGNAL(clicked()), this, SLOT(forestMapOpened()));
 
+    fileInfoPath = new QFileInfo(sewerageMapIcon);
     sewerageMap = new QPushButton(this);
     sewerageMap->setFixedSize(160, 160);
-    sewerageMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\sewerage_map.png"));
+    sewerageMap->setIcon(QIcon(fileInfoPath->absoluteFilePath()));
     sewerageMap->setIconSize(QSize(160, 160));
     connect(sewerageMap, SIGNAL(clicked()), this, SLOT(sewereMapOpened()));
 
+    fileInfoPath = new QFileInfo(mountainMapIcon);
     mountainMap = new QPushButton(this);
     mountainMap->setFixedSize(160, 160);
-    mountainMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\mountain_map.png"));
+    mountainMap->setIcon(QIcon(fileInfoPath->absoluteFilePath()));
     mountainMap->setIconSize(QSize(160, 160));
     connect(mountainMap, SIGNAL(clicked()), this, SLOT(mountainMapOpened()));
 
+    fileInfoPath = new QFileInfo(caveMapIcon);
     caveMap = new QPushButton(this);
     caveMap->setFixedSize(160, 160);
-    caveMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\cave_map.png"));
+    caveMap->setIcon(QIcon(fileInfoPath->absoluteFilePath()));
     caveMap->setIconSize(QSize(160, 160));
     connect(caveMap, SIGNAL(clicked()), this, SLOT(caveMapOpened()));
 
+    fileInfoPath = new QFileInfo(darkValleyMapIcon);
     darkValleyMap = new QPushButton(this);
     darkValleyMap->setFixedSize(160, 160);
-    darkValleyMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\dark_valley_map.png"));
+    darkValleyMap->setIcon(QIcon(fileInfoPath->absoluteFilePath()));
     darkValleyMap->setIconSize(QSize(160, 160));
     connect(darkValleyMap, SIGNAL(clicked()), this, SLOT(darkValleyMapOpened()));
 
+    fileInfoPath = new QFileInfo(ancientCastleMapIcon);
     ancientCastleMap = new QPushButton(this);
     ancientCastleMap->setFixedSize(160, 160);
-    ancientCastleMap->setIcon(QIcon("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\ancient_castle_map.png"));
+    ancientCastleMap->setIcon(QIcon(fileInfoPath->absoluteFilePath()));
     ancientCastleMap->setIconSize(QSize(160, 160));
     connect(ancientCastleMap, SIGNAL(clicked()), this, SLOT(ancientCastleMapOpened()));
 

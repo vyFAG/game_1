@@ -5,7 +5,16 @@ GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
 {
     absHealth = set_player.getPlayerHealth();
 
-    QPixmap* backgroundImage = new QPixmap("C:\\Users\\vovch\\Desktop\\qt_projects\\game_1\\sprites\\map_background_image.png");
+    qDebug() << QFileInfo(QCoreApplication::applicationDirPath()).absoluteFilePath();
+
+    QFile backgroundImageFile(QCoreApplication::applicationDirPath() + "/sprites/map_background_image.png");
+    QFileInfo* fileInfoPath = new QFileInfo(backgroundImageFile);
+
+    if(!backgroundImageFile.exists()) {
+        qDebug() << 1;
+    }
+
+    QPixmap* backgroundImage = new QPixmap(fileInfoPath->absoluteFilePath());
     QPalette* palette = new QPalette();
     palette->setBrush(QPalette::Window, *backgroundImage);
     this->setPalette(*palette);
@@ -22,15 +31,21 @@ GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
     playerCharsLayout = new QVBoxLayout();
     playerCharsLabel = new QLabel(createPlayerCharsLabel(), this);
     playerCharsLabel->setAlignment(Qt::AlignCenter);
+    playerCharsLabel->setFont(*labelsFont);
+    playerCharsLabel->setStyleSheet("color: #ffffff");
     playerCharsLayout->addWidget(playerCharsLabel);
 
     enemyCharsLayout = new QVBoxLayout();
     enemyCharsLabel = new QLabel(createEnemyCharsLabel(), this);
     enemyCharsLabel->setAlignment(Qt::AlignCenter);
+    enemyCharsLabel->setFont(*labelsFont);
+    enemyCharsLabel->setStyleSheet("color: #ffffff");
     enemyCharsLayout->addWidget(enemyCharsLabel);
 
     enemiesRemaining = new QLabel(this);
-    enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
+    enemiesRemaining->setText("Enemies to kill: " + QString::number(passedEnemies) + "/5");
+    enemiesRemaining->setFont(*labelsFont);
+    enemiesRemaining->setStyleSheet("color: #ffffff");
     enemiesRemaining->setAlignment(Qt::AlignCenter);
 
     attackButton = new QPushButton("Attack", this);
@@ -49,6 +64,8 @@ GameWindow::GameWindow(Character& set_player, int multiplier, QWidget *parent)
 
     gameLog = new QTextEdit();
     gameLog->setMaximumHeight(200);
+    gameLog->setFont(*labelsFont);
+    gameLog->setStyleSheet("background-color: #404040; color: #ffffff");
     gameLog->setReadOnly(1);
 
     actionButtonsLayout->addWidget(attackButton);
@@ -119,12 +136,13 @@ void GameWindow::attackAction() {
             addToLog("You earned " + QString::number(enemy->getExpGain()) + " expirience");
             player->addPlayerExp(enemy->getExpGain());
             passedEnemies += 1;
-            enemiesRemaining->setText(QString::number(passedEnemies) + "/5");
+            enemiesRemaining->setText("Enemies to kill: " + QString::number(passedEnemies) + "/5");
             if(passedEnemies == 5) {
                 disconnect(enemyAttackTimer, &QTimer::timeout, this, &GameWindow::enemyAttack);
                 QMessageBox msgBox;
                 msgBox.setWindowTitle("You Won!");
                 msgBox.setText("You Won!");
+                msgBox.setStyleSheet("background-color: #404040");
                 msgBox.exec();
                 this->close();
             }

@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    qDebug() << argv[0];
+    //qDebug() << argv[0];
     QApplication a(argc, argv);
     MapWindow w;
     w.show();
